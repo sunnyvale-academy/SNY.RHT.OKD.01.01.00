@@ -34,6 +34,8 @@ export OPENSHIFT_RELEASE=$openshift_release
 # Fix permission issue on Windows host (#13)
 chmod 600 /home/vagrant/.ssh/*
 
+export ANSIBLE_HOST_KEY_CHECKING=False
+
 if [ "$(version $openshift_release)" -gt "$(version 3.7)" ]; then
     ansible-playbook --key-file "~/.ssh/id_rsa"  /home/vagrant/openshift-ansible/playbooks/prerequisites.yml && \
     ansible-playbook --key-file "~/.ssh/id_rsa"  /home/vagrant/openshift-ansible/playbooks/deploy_cluster.yml
