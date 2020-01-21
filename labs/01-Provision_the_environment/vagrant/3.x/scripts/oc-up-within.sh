@@ -19,8 +19,9 @@
 
 
 
-cp /vagrant/keys/master_pvt_key.pem ~/.ssh/id_rsa
-cp /vagrant/keys/master_pub_key.pem ~/.ssh/id_rsa.pub
+cp /vagrant/keys/master_pvt_key.pem /home/vagrant/.ssh/id_rsa
+cp /vagrant/keys/master_pub_key.pem /home/vagrant/.ssh/id_rsa.pub
+chown vagrant:vagrant /home/vagrant/.ssh/id_rs*
 
 
 readonly openshift_release=`cat /vagrant/Vagrantfile | grep '^OPENSHIFT_RELEASE' | awk -F'=' '{print $2}' | sed 's/^[[:blank:]\"]*//;s/[[:blank:]\"]*$//'`
@@ -31,7 +32,7 @@ export OPENSHIFT_RELEASE=$openshift_release
 
 
 # Fix permission issue on Windows host (#13)
-chmod 600 /home/vagrant/.ssh/*.key
+chmod 600 /home/vagrant/.ssh/*
 
 if [ "$(version $openshift_release)" -gt "$(version 3.7)" ]; then
     ansible-playbook --key-file "~/.ssh/id_rsa" -i /vagrant/ansible-hosts /home/vagrant/openshift-ansible/playbooks/prerequisites.yml && \

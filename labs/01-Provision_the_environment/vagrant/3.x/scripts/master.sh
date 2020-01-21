@@ -70,7 +70,7 @@ function calculate_host_vars() {
 #===============================================================================
 function generate_ansible_hosts() {
   calculate_host_vars
-  cat /vagrant/ansible-hosts \
+  cat /vagrant/ansible-hosts.ini \
     | sed "s~{{OPENSHIFT_RELEASE}}~${OPENSHIFT_RELEASE}~g" \
     | sed "s~{{NETWORK_BASE}}~${NETWORK_BASE}~g" \
     | sed "s~{{NODE_GROUP_MASTER}}~${NODE_GROUP_MASTER}~g" \
@@ -125,20 +125,7 @@ function perform_chown() {
   chown -R vagrant:vagrant $VAGRANT_HOME
 }
 
-#===  FUNCTION  ================================================================
-#         NAME:  main
-#  DESCRIPTION:  The main entrypoint of the script
-# PARAMETER  1:  None
-#===============================================================================
-function main() {
-  install_packages
-  perform_setup
-  fetch_repo
-  perform_chown
-  
-  install_ansible
-  setup_cluster
-}
+
 
 #===  FUNCTION  ================================================================
 #         NAME:  install_ansible
@@ -158,6 +145,21 @@ function install_ansible() {
 #===============================================================================
 function setup_cluster() {
   /vagrant/scripts/ocp-up-within.sh
+}
+
+#===  FUNCTION  ================================================================
+#         NAME:  main
+#  DESCRIPTION:  The main entrypoint of the script
+# PARAMETER  1:  None
+#===============================================================================
+function main() {
+  install_packages
+  perform_setup
+  fetch_repo
+  perform_chown
+
+  install_ansible
+  setup_cluster
 }
 
 main $@

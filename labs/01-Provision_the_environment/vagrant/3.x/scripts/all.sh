@@ -38,4 +38,4 @@ if [ "$(version ${OPENSHIFT_RELEASE})" -eq "$(version 3.11)" ]; then
     yum install -y centos-release-openshift-origin311
 fi
 
-cat /vagrant/keys/master_pub_key.pem >> ~/.ssh/authorized_keys
+cat /vagrant/keys/master_pub_key.pem >> /home/vagrant/.ssh/authorized_keys
