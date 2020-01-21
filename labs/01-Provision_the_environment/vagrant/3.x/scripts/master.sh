@@ -70,7 +70,8 @@ function calculate_host_vars() {
 #===============================================================================
 function generate_ansible_hosts() {
   calculate_host_vars
-  cat /vagrant/ansible-hosts.ini \
+  sudo chmod 666 /etc/ansible/hosts
+  sudo cat /vagrant/ansible-hosts.ini \
     | sed "s~{{OPENSHIFT_RELEASE}}~${OPENSHIFT_RELEASE}~g" \
     | sed "s~{{NETWORK_BASE}}~${NETWORK_BASE}~g" \
     | sed "s~{{NODE_GROUP_MASTER}}~${NODE_GROUP_MASTER}~g" \
