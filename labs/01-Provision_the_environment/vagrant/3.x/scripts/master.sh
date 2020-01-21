@@ -145,12 +145,12 @@ function setup_cluster() {
 # PARAMETER  1:  None
 #===============================================================================
 function main() {
-  install_packages
-  perform_setup
+  install_packages  
   fetch_repo
   perform_chown
 
   install_ansible
+  perform_setup
   setup_cluster
 }
 
