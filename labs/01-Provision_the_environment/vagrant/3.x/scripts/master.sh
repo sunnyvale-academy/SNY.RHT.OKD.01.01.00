@@ -144,7 +144,8 @@ function install_ansible() {
 # PARAMETER  1:  None
 #===============================================================================
 function setup_cluster() {
-  /vagrant/scripts/ocp-up-within.sh
+  chmod 755 /vagrant/scripts/oc-up-within.sh
+  /vagrant/scripts/oc-up-within.sh
 }
 
 #===  FUNCTION  ================================================================
