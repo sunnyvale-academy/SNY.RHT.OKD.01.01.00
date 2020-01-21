@@ -82,17 +82,7 @@ function generate_ansible_hosts() {
     > /etc/ansible/hosts
 }
 
-#===  FUNCTION  ================================================================
-#         NAME:  setup_ssh
-#  DESCRIPTION:  Setup ssh with NO strict host key checking
-# PARAMETER  1:  None
-#===============================================================================
-function setup_ssh() {
-  mkdir -p $VAGRANT_HOME/.ssh
-  bash -c "echo 'Host *' >> $VAGRANT_HOME/.ssh/config"
-  bash -c "echo 'StrictHostKeyChecking no' >> $VAGRANT_HOME/.ssh/config"
-  chmod 600 $VAGRANT_HOME/.ssh/config
-}
+
 
 #===  FUNCTION  ================================================================
 #         NAME:  perform_setup
@@ -100,7 +90,7 @@ function setup_ssh() {
 # PARAMETER  1:  None
 #===============================================================================
 function perform_setup() {
-    setup_ssh && generate_ansible_hosts
+    generate_ansible_hosts
 }
 
 #===  FUNCTION  ================================================================

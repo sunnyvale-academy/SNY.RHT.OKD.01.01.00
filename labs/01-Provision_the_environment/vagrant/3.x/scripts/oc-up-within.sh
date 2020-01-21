@@ -35,8 +35,8 @@ export OPENSHIFT_RELEASE=$openshift_release
 chmod 600 /home/vagrant/.ssh/*
 
 if [ "$(version $openshift_release)" -gt "$(version 3.7)" ]; then
-    ansible-playbook --key-file "~/.ssh/id_rsa" -i /vagrant/ansible-hosts.ini /home/vagrant/openshift-ansible/playbooks/prerequisites.yml && \
-    ansible-playbook --key-file "~/.ssh/id_rsa" -i /vagrant/ansible-hosts.ini /home/vagrant/openshift-ansible/playbooks/deploy_cluster.yml
+    ansible-playbook --key-file "~/.ssh/id_rsa"  /home/vagrant/openshift-ansible/playbooks/prerequisites.yml && \
+    ansible-playbook --key-file "~/.ssh/id_rsa"  /home/vagrant/openshift-ansible/playbooks/deploy_cluster.yml
 else
-    ansible-playbook --key-file "~/.ssh/id_rsa" -i /vagrant/ansible-hosts.ini /home/vagrant/openshift-ansible/playbooks/byo/config.yml
+    ansible-playbook --key-file "~/.ssh/id_rsa"  /home/vagrant/openshift-ansible/playbooks/byo/config.yml
 fi
