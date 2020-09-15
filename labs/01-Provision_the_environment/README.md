@@ -1,21 +1,14 @@
+# Provision the environment
 
-## Provision the environment
+## 3.x clusters
 
-```console
-$ vagrant up
-```
+### Multinode 3.x cluster using Vagrant
 
-## Open Web Console
+To provision a multinode 3.x cluster using Vagrant, please follow the README.md file [here](3.x/vagrant/README.md)
 
-In browser of your host, open the following page: https://master.example.com:8443/ and you should see **OpenShift Web Console** login page. The default login account is **admin/handhand**
 
-## Cluster Admin role
+## 4.x clusters
 
-To become Cluster Admin, login into the master node and run the following command as root
+### Single node 4.x cluster using CodeReady Containers
 
-```console
-$ vagrant ssh
-[vagrant@master vagrant]$ sudo su
-[root@master vagrant]# oc adm policy add-cluster-role-to-user cluster-admin admin --as=system:admin    
-cluster role "cluster-admin" added: "admin"
-```
+To provision a single node 4.x cluster using CodeReady Containers, please follow the README.md file [here](4.x/CodeReadyContainers/README.md)
