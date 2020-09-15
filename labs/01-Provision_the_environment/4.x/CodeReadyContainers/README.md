@@ -66,7 +66,21 @@ INFO You can now run 'crc console' and use these credentials to access the OpenS
 Started the OpenShift cluster
 ```
 
-To open the CRC console
+If something went wrong with DNS resolution (a WARN message came out from the start outout), stop the cluster using `crc stop`the start it again with `crc start -n 8.8.8.8`.
+
+To verify the cluster status:
+
+```console
+$ crc status
+CRC VM:          Running
+OpenShift:       Running (v4.5.7)
+Disk Usage:      15.88GB of 32.72GB (Inside the CRC VM)
+Cache Usage:     12.8GB
+Cache Directory: /Users/myuser/.crc/cache
+```
+
+
+To open the CRC console:
 
 ```console
 $ crc console
@@ -82,3 +96,10 @@ To get started with CRC, please have a look of the following [documentation](htt
 
 
 
+When done, stop the cluster using:
+
+```console
+$  crc stop 
+Stopping the OpenShift cluster, this may take a few minutes...
+Stopped the OpenShift cluster
+```
