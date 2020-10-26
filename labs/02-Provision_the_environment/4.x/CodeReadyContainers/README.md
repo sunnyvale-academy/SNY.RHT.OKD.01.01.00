@@ -69,7 +69,6 @@ INFO Configuring cluster for first start
 INFO Adding user's pull secret ...                
 INFO Updating cluster ID ...                      
 INFO Starting OpenShift cluster ... [waiting 3m]  
-
 INFO Updating kubeconfig                          
 WARN The cluster might report a degraded or error state. This is expected since several operators have been disabled to lower the resource usage. For more information, please consult the documentation 
 Started the OpenShift cluster

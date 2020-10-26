@@ -22,13 +22,13 @@ A browser window opens asking you to authenticate.
 
 Choose the **htpasswd_provider** option in the OpenShift web console.
 
-Log in as **developer** user with password **developer** to login as user.
+Log in as **developer** user with password **developer**, to login as a simple user.
 
 ### As administrator
 
 Choose the **kube:admin** option in the OpenShift web console.
 
-Log in as **kubeadmin** user with the password provided at the end of the `crc start` command to login as administrator.
+Log in as **kubeadmin** user with the password provided at the end of the `crc start` command, to login as an administrator.
 
 ## CLI 
 
