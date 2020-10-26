@@ -1,5 +1,15 @@
 
-## Provision the environment using Vagrant
+# Provision the environment using Vagrant
+
+## Prerequisites
+
+Other than prerequisites listed in chapter 00, the following software must be installed as well:
+
+- Virtualbox [download here](https://www.virtualbox.org/wiki/Downloads)
+- VirtualBox Extension Pack [download here](https://www.virtualbox.org/wiki/Downloads)
+- Vagrant [download here](https://www.vagrantup.com/downloads.html)
+
+## Create the cluster
 
 ```console
 $ vagrant up
