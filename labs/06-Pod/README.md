@@ -55,7 +55,7 @@ myapp-pod   1/1     Running   0          3m29s   10.116.0.57   crc-j55b9-master-
 Get the Pod's container logs
 ```console
 $ oc logs myapp-pod 
-Hello Kubernetes!
+Hello Kubernetes!
 ```
 
 Cleanup!

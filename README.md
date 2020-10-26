@@ -18,6 +18,12 @@ Learning OpenShift Kubernetes Distribution
 
 [06 - Pod](./labs/06-Pod/README.md)
 
+[07 - ReplicationController](./labs/07-ReplicationController/README.md)
+
+[08 - ReplicaSet](./labs/08-ReplicaSet/README.md)
+
+[09 - Deployment](./labs/09-Deployment/README.md)
+
 ## Appendices
 
 [A - Sync copy of forked repo](./appendices/A-Sync_copy_of_forked_repo/README.md)
