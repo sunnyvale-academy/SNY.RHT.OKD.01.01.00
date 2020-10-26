@@ -53,3 +53,9 @@ system:image-builders   ClusterRole/system:image-builder   2m54s                
 system:image-pullers    ClusterRole/system:image-puller    2m54s                system:serviceaccounts:test   
 ```
 
+In order to execute the next labs, apply all the following policies to the newly created test project: 
+
+```console
+oc adm policy add-scc-to-user anyuid system:serviceaccount:test:default
+
+```
