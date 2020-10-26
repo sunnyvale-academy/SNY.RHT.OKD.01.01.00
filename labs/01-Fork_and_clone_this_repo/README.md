@@ -12,7 +12,7 @@ The SNY.RHT.OKD.01.01.00 repo home page opens:
 
 ![GitHub](img/1.png)
 
-Click on **Fork** button at the top-right of the screen. GitHub asks you to authenticate:
+Click on **Fork** button at the top-right of the screen. If not already, GitHub asks you to authenticate:
 
 ![GitHub](img/2.png)
 
