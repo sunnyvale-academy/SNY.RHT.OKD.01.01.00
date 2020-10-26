@@ -36,6 +36,11 @@ Log in as **kubeadmin** user with the password provided at the end of the `crc s
 
 ```console
 $ oc login -u developer -p developer https://api.crc.testing:6443
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
 ```
 
 
