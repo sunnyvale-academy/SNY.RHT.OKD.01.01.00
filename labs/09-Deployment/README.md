@@ -37,7 +37,7 @@ $ oc project test
 Already on project "test" on server "https://api.crc.testing:6443".
 ```
 
-## Create a Deployment
+## Create a Deployment
 
 Let’s create a deployment with a single container based on nginx:1.7.9 image, that supervises two replicas of a pod as well as a replica set:
 
