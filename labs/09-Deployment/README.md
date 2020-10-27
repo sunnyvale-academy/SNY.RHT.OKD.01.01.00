@@ -81,7 +81,7 @@ nginx-deployment-684bd4f4c-s8rmk    0/1     ContainerCreating   0          4s
 
 After a while, old pod instances are terminating, the new onces are already running
 ```console
-$ kubectl get pods
+$ oc get pods
 NAME                                READY   STATUS        RESTARTS   AGE
 nginx-deployment-5bf87f5f59-4n9k4   0/1     Terminating   0          71s
 nginx-deployment-684bd4f4c-kxsn2    1/1     Running       0          8s
@@ -90,7 +90,7 @@ nginx-deployment-684bd4f4c-s8rmk    1/1     Running       0          12s
 
 At the end, pod instances stay running, the old ones are not deployed anymore
 ```console
-$ kubectl get pods
+$ oc get pods
 NAME                                READY   STATUS    RESTARTS   AGE
 nginx-deployment-684bd4f4c-kxsn2   1/1     Running   0          22s
 nginx-deployment-684bd4f4c-s8rmk   1/1     Running   0          26s
@@ -99,7 +99,7 @@ nginx-deployment-684bd4f4c-s8rmk   1/1     Running   0          26s
 Also, a new replica set has been created by the deployment:
 
 ```console
-$ kubectl get rs
+$ oc get rs
 NAME                          DESIRED   CURRENT   READY   AGE
 nginx-deployment-5bf87f5f59   0         0         0       101s
 nginx-deployment-684bd4f4c    2         2         2       41s
@@ -138,7 +138,7 @@ REVISION  CHANGE-CAUSE
 At this point in time we’re back at where we started
 
 ```console
-$ kubectl get rs   
+$ oc get rs   
 NAME                          DESIRED   CURRENT   READY   AGE
 nginx-deployment-5bf87f5f59   2         2         2       2m54s
 nginx-deployment-684bd4f4c    0         0         0       114s
