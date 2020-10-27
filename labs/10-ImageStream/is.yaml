@@ -1,0 +1,27 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  name: python
+  namespace: test
+spec:
+  lookupPolicy:
+    local: false
+  tags:
+  - annotations: null
+    from:
+      kind: DockerImage
+      name: centos/python-35-centos7
+    importPolicy: {}
+    name: "3.5"
+    referencePolicy:
+      type: Source
+status:
+  dockerImageRepository: image-registry.openshift-image-registry.svc:5000/test/python
+  publicDockerImageRepository: default-route-openshift-image-registry.apps-crc.testing/test/python
+  tags:
+  - items:
+    - created: "2020-10-27T20:06:36Z"
+      dockerImageReference: centos/python-35-centos7@sha256:d2018907a8ffa94644fccc8e3821a0945c600a16337c11c1a761e86159d69870
+      generation: 1
+      image: sha256:d2018907a8ffa94644fccc8e3821a0945c600a16337c11c1a761e86159d69870
+    tag: "3.5"
