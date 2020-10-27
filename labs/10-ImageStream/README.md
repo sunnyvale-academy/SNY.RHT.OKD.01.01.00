@@ -1,5 +1,7 @@
 # ImageStream
 
+![OpenShift](https://img.shields.io/badge/OpenShift-informational?logo=Red%20Hat%20Open%20Shift&color=black&logoColor=red&style=for-the-badge&logoWidth=30)
+
 ## Prerequisites
 
 Having completed the following labs:
@@ -27,7 +29,7 @@ $ oc project test
 Already on project "test" on server "https://api.crc.testing:6443".
 ```
 
-# Create an ImageStream
+## Create an ImageStream
 
 Create an ImageStream using `oc` command:
 
