@@ -113,9 +113,9 @@ Environment:    PATH=/opt/app-root/src/.local/bin/:/opt/app-root/src/bin:/opt/ap
                 PIP_NO_CACHE_DIR=off
 ```
 
-- python:3.5 - python is the new Image Stream that will be created as a result of this invocation. Additionally we are explicitly pointing that the imported image will be kept under the 3.5 Image Stream Tag of that Image Stream. If no tag part is specified the command will use latest.
-- --from=centos/python-35-centos7 - states what external image the Image Stream Tag will point to.
-- --confirm - informs the system that the python Image Stream should be created, if this is omitted and there is no python Image Stream, you will be presented with an error message.
+- python:3.5 - python is the new ImageStream that will be created as a result of this invocation. Additionally we are explicitly pointing that the imported image will be kept under the 3.5 ImageStream Tag of that ImageStream. If no tag part is specified the command will use latest.
+- --from=centos/python-35-centos7 - states what external image the ImageStream Tag will point to.
+- --confirm - informs the system that the python ImageStream should be created, if this is omitted and there is no python ImageStream, you will be presented with an error message.
 
 List the ImageStream resources
 
@@ -257,15 +257,15 @@ $ oc tag docker.io/python:3.6.0 python:3.6 --scheduled
 Tag python:3.6 set to import docker.io/python:3.6.0 periodically.
 ```
 
-This will inform the system that this particular Image Stream Tag should be periodically checked for updates. Currently, this period is a cluster-wide setting, and by default, it is set to 15 minutes.
+This will inform the system that this particular ImageStream Tag should be periodically checked for updates. Currently, this period is a cluster-wide setting, and by default, it is set to 15 minutes.
 
-Only an Image Stream Tag pointing to an external docker registry can be periodically checked for updates.
+Only an ImageStream Tag pointing to an external docker registry can be periodically checked for updates.
 
 To remove the periodical check, re-run above command but omit the `--scheduled` flag. This will reset its behavior to default.
 
 ## Remove a tag from ImageStream
 
-Eventually, you will want to remove old tags from your Image Stream, and yet again we are going to use `oc tag` for that particular use case:
+Eventually, you will want to remove old tags from your ImageStream, and yet again we are going to use `oc tag` for that particular use case:
 
 ```console
 $ oc tag -d python:3.5
