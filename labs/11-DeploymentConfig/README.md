@@ -194,3 +194,16 @@ triggers:
         kind: ImageStreamTag
         name: my-nginx-is:latest
 ```
+
+## Cleanup
+
+
+```console
+$ oc delete -f .
+deploymentconfig.apps.openshift.io "simple-http-server" deleted
+```
+
+```console
+$ oc delete is my-nginx-is
+imagestream.image.openshift.io "my-nginx-is" deleted
+```
