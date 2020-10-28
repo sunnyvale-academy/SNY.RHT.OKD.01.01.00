@@ -30,6 +30,10 @@ Learning OpenShift Kubernetes Distribution
 
 [12 - BuildConfig](./labs/12-BuildConfig/README.md)
 
+[13 - Service](./labs/13-Service/README.md)
+
+[14 - Ingress](./labs/14-Ingress/README.md)
+
 ## Appendices
 
 [A - Sync copy of forked repo](./appendices/A-Sync_copy_of_forked_repo/README.md)

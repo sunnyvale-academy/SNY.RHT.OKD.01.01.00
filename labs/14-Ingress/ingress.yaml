@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress
+  namespace: test
+spec:
+  rules:
+  - host: api.crc.testing
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: nginx-service
+          servicePort: http
+      - path: /whoami
+        backend:
+          serviceName: whoami-service
+          servicePort: http
