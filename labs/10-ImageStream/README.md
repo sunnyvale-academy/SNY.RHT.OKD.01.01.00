@@ -155,14 +155,15 @@ As you can see, this ImageStream has only 1 tag in it.
 
 ## Add more tags to the current ImageStream 
 
-To add a **latest** tag that points to one of the existing tags, you can use the oc tag command (self reference)
+To add a **latest** tag that points to one of the existing tags, you can use the `oc tag` command (self reference)
+
 
 ```console
 $ oc tag python:3.5 python:latest
 Tag python:latest set to python@sha256:d2018907a8ffa94644fccc8e3821a0945c600a16337c11c1a761e86159d69870.
 ```
 
-Check the new image tag within the ImageStream
+
 
 ```console
 $ oc describe is/python
@@ -195,7 +196,7 @@ The image python:latest now appears within the ImageStream and as you can see, i
 
 ## Add a tag poiting to an external image
 
-All tag-related operations are performed using oc tag command, and adding tags pointing to internal or external images is not any different:
+All tag-related operations are performed using `oc tag` command, and adding tags pointing to internal or external images is not any different:
 
 ```
 $ oc tag docker.io/python:3.6.0 python:3.6

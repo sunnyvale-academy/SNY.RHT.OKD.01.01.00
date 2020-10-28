@@ -1,0 +1,33 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  name: simple-http-server
+  namespace: test
+  labels:
+    app: simple-http-server
+spec:
+  template:
+    metadata:
+      labels:
+        name: simple-http-server
+        app: simple-http-server
+    spec:
+      containers:
+        - name: simple-http-server
+          image: ""
+          ports:
+            - containerPort: 80
+              protocol: TCP
+  replicas: 1
+  strategy:
+    type: Rolling
+  triggers:
+  - type: ImageChange
+    imageChangeParams:
+      automatic: true
+      containerNames:
+      - simple-http-server
+      from:
+        kind: ImageStreamTag
+        name: my-nginx-is:latest
+  paused: false

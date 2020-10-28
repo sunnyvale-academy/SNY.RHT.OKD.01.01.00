@@ -1,5 +1,7 @@
 # Project
 
+![OpenShift](https://img.shields.io/badge/OpenShift-informational?logo=Red%20Hat%20Open%20Shift&color=black&logoColor=red&style=for-the-badge&logoWidth=30)
+
 ## Prerequisites
 
 Having completed the following labs:
