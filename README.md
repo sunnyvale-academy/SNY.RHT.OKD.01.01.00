@@ -26,6 +26,10 @@ Learning OpenShift Kubernetes Distribution
 
 [10 - ImageStream](./labs/10-ImageStream/README.md)
 
+[11 - DeploymentConfig](./labs/11-DeploymentConfig/README.md)
+
+[12 - BuildConfig](./labs/12-BuildConfig/README.md)
+
 ## Appendices
 
 [A - Sync copy of forked repo](./appendices/A-Sync_copy_of_forked_repo/README.md)
