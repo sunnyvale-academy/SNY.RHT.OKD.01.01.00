@@ -58,7 +58,7 @@ $ oc project test
 Already on project "test" on server "https://api.crc.testing:6443".
 ```
 
-## Simple BuildConfig ()
+## Simple BuildConfig 
 
 
 Create the **source** ImageStream to start from.
@@ -263,7 +263,31 @@ ruby-example   1/1     1            1           65m
 Check the Pods
 
 ```console
-$ NAME                           READY   STATUS      RESTARTS   AGE
+$ oc get pods
+NAME                           READY   STATUS      RESTARTS   AGE
 ruby-example-859bb5d85-zt5p4   1/1     Running     0          65m
 simple-bc-1-build              0/1     Completed   0          108m
+```
+
+## Cleanup
+
+Delete the BuildConfig
+
+```console
+$ oc delete bc simple-bc
+buildconfig.build.openshift.io "simple-bc" deleted
+```
+
+Delete ImageStreams
+
+```console
+$ oc delete is ruby-example ruby
+imagestream.image.openshift.io "ruby-example" deleted
+imagestream.image.openshift.io "ruby" deleted
+```
+
+Delete the Deployment
+
+```console
+$ oc delete deploy ruby-example
 ```
