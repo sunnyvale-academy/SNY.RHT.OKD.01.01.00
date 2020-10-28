@@ -30,6 +30,8 @@ As output, a BuildConfig can produce:
 
 A build configuration describes a single build definition and a set of triggers for when a new build should be created. Build configurations are defined by a **BuildConfig** resources.
 
+![OpenShift](https://img.shields.io/badge/OpenShift-informational?logo=Red%20Hat%20Open%20Shift&color=black&logoColor=red&style=for-the-badge&logoWidth=30)
+
 
 ## Prerequisites
 
