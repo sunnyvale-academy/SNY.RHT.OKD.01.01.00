@@ -34,6 +34,8 @@ Learning OpenShift Kubernetes Distribution
 
 [14 - Ingress](./labs/14-Ingress/README.md)
 
+[15 - Route](./labs/15-Route/README.md)
+
 ## Appendices
 
 [A - Sync copy of forked repo](./appendices/A-Sync_copy_of_forked_repo/README.md)

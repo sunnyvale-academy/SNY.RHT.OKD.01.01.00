@@ -1,0 +1,129 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: nginx-service
+  namespace: test
+spec:
+  host: api.crc.testing
+  port:
+    targetPort: http
+  tls:
+    caCertificate: |
+      -----BEGIN CERTIFICATE-----
+      MIIFBzCCAu+gAwIBAgIJAO0Kcm6gJ4neMA0GCSqGSIb3DQEBCwUAMBoxGDAWBgNV
+      BAMMD2FwaS5jcmMudGVzdGluZzAeFw0yMDEwMjgyMzMyMjVaFw0yMTEwMjgyMzMy
+      MjVaMBoxGDAWBgNVBAMMD2FwaS5jcmMudGVzdGluZzCCAiIwDQYJKoZIhvcNAQEB
+      BQADggIPADCCAgoCggIBANEIBybKEMa2u1wmra5ZsE4FQYgrCXj1Pe/qXEwcvmBO
+      MztiY5H9nIN5WYVeX9kSr5fErZk8Ob56gNa/EEhYU4g80dUc0fuu19GL6BspNuqQ
+      C40e2U14lop7nJuYPWLVdqk7bAStmtZYhFpSxywybFIgQxb12Ay+iRoF5aEN81PB
+      cWMxikP6ep0NfeL66uh1xO3vHgelgyeFlwC9mJW58KZMsRdQfl/3rbldBhpQWZmI
+      eqkfQcyY6rbVXdtti+wGuBy+C5jvOOaq5UqcBNrJ+6D44EzGhLPz3gWjOQDq95+3
+      Akm35Sbm9NUYU2HLcYwGRu+cXPwjgrcB409pvmGSmaIvyYM6vn+z6YNuyDgkfGUO
+      h8sSJchVthaL447Oi0QRB7+1i/gJJ+5O4ujVxLOrlH38TeNKW4x703/2plBbC0m3
+      meo0XveMHDYI6kWU03tR5Gl4BjTzjGzJ9z4nJ6qXBVn0JCzqb1ptAzH1iUlcLtvP
+      s2M5glcenTc33f98XHa3jBmag/L9sHO3NwMkkPkSDkz8g/ApByqP4euD8+2Cz99e
+      WxnIhH7P9HZylPcUGboJuZwUz95GnDLbQpE7KdMeF234DKdhICNnmuTnJ6o8W9nd
+      Mgx/QXn9vexNQ3LSSsoyMP0ypWPaIjd6yPOhcAh7ITqp3wlbk5X8eD/+Kom3LXsR
+      AgMBAAGjUDBOMB0GA1UdDgQWBBTM/z6AqO7H9v1w9ztzVlu1CMmzszAfBgNVHSME
+      GDAWgBTM/z6AqO7H9v1w9ztzVlu1CMmzszAMBgNVHRMEBTADAQH/MA0GCSqGSIb3
+      DQEBCwUAA4ICAQDF2Dl0rG7X8o+7LqleDuzglGzMWu4dfczOCGUfhRjGKdpb5dCM
+      5gsXXt4v8mNGmANV/B7ItcLYzxb4Qg/d5vdPZEgyd8weCo8164AmAPSK+nPIh1+7
+      jv+AqhBLbIaGp1ce8tjIyhxpk9BYasytkbI9CbJsNC8GU+qZUhc/dVHj/qBlQN0C
+      ecUQ/Y+BxD5TfcQAYzgcg/AZn6mb1RNqhpDxYuqXWBJREKB7gnwnxL+mrLNnLwBc
+      lK4MsOrOe1TSWDfcC1kgyM8M0o2I4f6OST62/PgSilufFge6TwZZRirHMR3/ythC
+      tqjIxi4BZOs4PBn1XnUtI6xWUHYW9SODysOyDwCFhO8oW54x+soQIkTXiU3hcIzb
+      ahYSWm4nS4F5C2w6NGM9lljEoQoQH3gtFYD+zy/w+NXp2UqBRJBxy0mg2QnnYT1P
+      WB/sV+EObQ9E6fC+bAU484h/7LrGCCBa0Hzbw1/wE2UeQCRHa3EEJ/z63IklkvAl
+      nfB+qz2H0Z7ItlWaVpZNipiBUCu6i/kG75GZ4PIkzhaxNqKft7bMAwty8XwKPd9G
+      GJR0ewqr/mKdjMeesDWU5SWzyVP58Yc3P9xExrRxOPLFex9OCE7HL0TfUcRDFfoU
+      u5TOP2A+jYGLYXsjf+wur0XEaWYe+B9iOjjofwj3FE3yQxiz4ZSzHnZnFQ==
+      -----END CERTIFICATE-----
+    certificate: |
+      -----BEGIN CERTIFICATE-----
+      MIIFBzCCAu+gAwIBAgIJAO0Kcm6gJ4neMA0GCSqGSIb3DQEBCwUAMBoxGDAWBgNV
+      BAMMD2FwaS5jcmMudGVzdGluZzAeFw0yMDEwMjgyMzMyMjVaFw0yMTEwMjgyMzMy
+      MjVaMBoxGDAWBgNVBAMMD2FwaS5jcmMudGVzdGluZzCCAiIwDQYJKoZIhvcNAQEB
+      BQADggIPADCCAgoCggIBANEIBybKEMa2u1wmra5ZsE4FQYgrCXj1Pe/qXEwcvmBO
+      MztiY5H9nIN5WYVeX9kSr5fErZk8Ob56gNa/EEhYU4g80dUc0fuu19GL6BspNuqQ
+      C40e2U14lop7nJuYPWLVdqk7bAStmtZYhFpSxywybFIgQxb12Ay+iRoF5aEN81PB
+      cWMxikP6ep0NfeL66uh1xO3vHgelgyeFlwC9mJW58KZMsRdQfl/3rbldBhpQWZmI
+      eqkfQcyY6rbVXdtti+wGuBy+C5jvOOaq5UqcBNrJ+6D44EzGhLPz3gWjOQDq95+3
+      Akm35Sbm9NUYU2HLcYwGRu+cXPwjgrcB409pvmGSmaIvyYM6vn+z6YNuyDgkfGUO
+      h8sSJchVthaL447Oi0QRB7+1i/gJJ+5O4ujVxLOrlH38TeNKW4x703/2plBbC0m3
+      meo0XveMHDYI6kWU03tR5Gl4BjTzjGzJ9z4nJ6qXBVn0JCzqb1ptAzH1iUlcLtvP
+      s2M5glcenTc33f98XHa3jBmag/L9sHO3NwMkkPkSDkz8g/ApByqP4euD8+2Cz99e
+      WxnIhH7P9HZylPcUGboJuZwUz95GnDLbQpE7KdMeF234DKdhICNnmuTnJ6o8W9nd
+      Mgx/QXn9vexNQ3LSSsoyMP0ypWPaIjd6yPOhcAh7ITqp3wlbk5X8eD/+Kom3LXsR
+      AgMBAAGjUDBOMB0GA1UdDgQWBBTM/z6AqO7H9v1w9ztzVlu1CMmzszAfBgNVHSME
+      GDAWgBTM/z6AqO7H9v1w9ztzVlu1CMmzszAMBgNVHRMEBTADAQH/MA0GCSqGSIb3
+      DQEBCwUAA4ICAQDF2Dl0rG7X8o+7LqleDuzglGzMWu4dfczOCGUfhRjGKdpb5dCM
+      5gsXXt4v8mNGmANV/B7ItcLYzxb4Qg/d5vdPZEgyd8weCo8164AmAPSK+nPIh1+7
+      jv+AqhBLbIaGp1ce8tjIyhxpk9BYasytkbI9CbJsNC8GU+qZUhc/dVHj/qBlQN0C
+      ecUQ/Y+BxD5TfcQAYzgcg/AZn6mb1RNqhpDxYuqXWBJREKB7gnwnxL+mrLNnLwBc
+      lK4MsOrOe1TSWDfcC1kgyM8M0o2I4f6OST62/PgSilufFge6TwZZRirHMR3/ythC
+      tqjIxi4BZOs4PBn1XnUtI6xWUHYW9SODysOyDwCFhO8oW54x+soQIkTXiU3hcIzb
+      ahYSWm4nS4F5C2w6NGM9lljEoQoQH3gtFYD+zy/w+NXp2UqBRJBxy0mg2QnnYT1P
+      WB/sV+EObQ9E6fC+bAU484h/7LrGCCBa0Hzbw1/wE2UeQCRHa3EEJ/z63IklkvAl
+      nfB+qz2H0Z7ItlWaVpZNipiBUCu6i/kG75GZ4PIkzhaxNqKft7bMAwty8XwKPd9G
+      GJR0ewqr/mKdjMeesDWU5SWzyVP58Yc3P9xExrRxOPLFex9OCE7HL0TfUcRDFfoU
+      u5TOP2A+jYGLYXsjf+wur0XEaWYe+B9iOjjofwj3FE3yQxiz4ZSzHnZnFQ==
+      -----END CERTIFICATE-----
+    key: |
+      -----BEGIN PRIVATE KEY-----
+      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
+      pCwWYpedYDHZlYWnONiSQPEyChAUyw==
+      -----END PRIVATE KEY-----
+    termination: edge
+  to:
+    kind: Service
+    name: nginx-service
+    weight: 100
+  wildcardPolicy: None

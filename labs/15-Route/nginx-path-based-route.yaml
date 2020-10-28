@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Route
+metadata:
+  name: nginx-path-based-route
+spec:
+  host: api.crc.testing
+  path: "/index.html"   
+  to:
+    kind: Service
+    name: nginx-service
+  

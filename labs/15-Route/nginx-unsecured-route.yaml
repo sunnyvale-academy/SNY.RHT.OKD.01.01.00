@@ -1,0 +1,14 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: nginx-service
+  namespace: test
+spec:
+  host: api.crc.testing
+  port:
+    targetPort: http
+  to:
+    kind: Service
+    name: nginx-service
+    weight: 100
+  wildcardPolicy: None
