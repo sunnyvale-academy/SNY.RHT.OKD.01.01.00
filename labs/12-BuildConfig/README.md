@@ -228,3 +228,42 @@ latest
     image-registry.openshift-image-registry.svc:5000/test/ruby-example@sha256:4c1bf55a3fee613fec88ddcafb414004631a6fdfe4d19779bf4a2681ba4ba05d
       25 minutes ago
 ```
+
+
+Run the application
+
+```console
+$ oc new-app test/ruby-example:latest
+--> Found image 9511900 (40 minutes old) in image stream "test/ruby-example" under tag "latest" for "test/ruby-example:latest"
+
+    Ruby 2.4 
+    -------- 
+    Ruby 2.4 available as container is a base platform for building and running various Ruby 2.4 applications and frameworks. Ruby is the interpreted scripting language for quick and easy object-oriented programming. It has many features to process text files and to do system management tasks (as in Perl). It is simple, straight-forward, and extensible.
+
+    Tags: builder, ruby, ruby24, rh-ruby24
+
+
+--> Creating resources ...
+    deployment.apps "ruby-example" created
+    service "ruby-example" created
+--> Success
+    Application is not exposed. You can expose services to the outside world by executing one or more of the commands below:
+     'oc expose svc/ruby-example' 
+    Run 'oc status' to view your app.
+```
+
+Check the resulting Deployment
+
+```console
+$ oc get deploy 
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+ruby-example   1/1     1            1           65m
+```
+
+Check the Pods
+
+```console
+$ NAME                           READY   STATUS      RESTARTS   AGE
+ruby-example-859bb5d85-zt5p4   1/1     Running     0          65m
+simple-bc-1-build              0/1     Completed   0          108m
+```
