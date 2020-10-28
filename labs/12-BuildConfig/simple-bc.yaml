@@ -1,0 +1,27 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: simple-bc
+  namespace: test
+spec:
+  source:
+    git:
+      ref: master
+      uri: 'https://github.com/openshift/ruby-ex.git'
+    type: Git
+  strategy:
+    type: Source
+    sourceStrategy:
+      from:
+        kind: ImageStreamTag
+        name: 'ruby:2.4'
+        namespace: openshift
+      env: []
+  output: 
+    to:
+      kind: "ImageStreamTag"
+      name: "ruby-example:latest"
+  triggers:
+    - type: ImageChange
+      imageChange: {}
+    - type: ConfigChange
