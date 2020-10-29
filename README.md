@@ -40,6 +40,12 @@ Learning OpenShift Kubernetes Distribution
 
 [17 - PersistentVolume and PersistentVolumeClaim](./labs/17-PersistentVolume_and_PersistentVolumeClaim/README.md)
 
+[18 - StorageClass](./labs/18-StorageClass/README.md)
+
+[19 - ConfigMap](./labs/19-ConfigMap/README.md)
+
+[20 - Secret](./labs/20-Secret/README.md)
+
 ## Appendices
 
 [A - Sync copy of forked repo](./appendices/A-Sync_copy_of_forked_repo/README.md)

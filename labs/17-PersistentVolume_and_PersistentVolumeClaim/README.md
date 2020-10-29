@@ -136,11 +136,10 @@ Don't forget to clean up after you:
 
 ```console
 $ oc delete -f .
-deployment.apps "busybox-nfs-deployment" deleted
-persistentvolume "nfsvol" deleted
-pod "nginx-nfs-pod" deleted
+deployment.apps "busybox-pvc-deployment" deleted
+pod "nginx-pvc-pod" deleted
 service "nginx-nodeport-service" deleted
-persistentvolumeclaim "nfs-pvc" deleted
+persistentvolumeclaim "my-pvc" deleted
 ```
 
 

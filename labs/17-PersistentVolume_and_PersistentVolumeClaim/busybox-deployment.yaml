@@ -22,6 +22,8 @@ spec:
         - name: myvol-2 
           mountPath: /usr/share/busybox  
           readOnly: false
+      securityContext:
+        #runAsUser: 1
       volumes:
       - name: myvol-2
         persistentVolumeClaim:

@@ -3,7 +3,6 @@ kind: PersistentVolumeClaim
 metadata:
   name: test-pvc
 spec:
- # storageClassName: generic
   accessModes:
   - ReadWriteOnce
   resources:
