@@ -1,13 +1,12 @@
 # ConfigMap
 
-
-![ConfigMap](img/configmap-diagram.gif)
-
 A ConfigMap is a dictionary of key-value pairs that store configuration settings for your applications.
 
 First, create a ConfigMap in your cluster by tweaking our sample YAML to your needs.
 
 Second, consume to ConfigMap in your Pods and use its values.
+
+![ConfigMap](img/configmap-diagram.gif)
 
 The ConfigMap described in **nginx-cm.yaml** bring two key/value entry, the first **nginx.conf** will be used within a Nginx container to configure the webserver, the second **virtualhost.conf** will be used to configure a Virtualhost within the same Nginx container.
 

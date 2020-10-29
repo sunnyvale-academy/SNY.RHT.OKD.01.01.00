@@ -1,11 +1,5 @@
 # Secret
 
-Before using **kubectl**, please set the **KUBECONFIG** environment variable to point to the right kubeconfig file.
-
-```console
-$ export KUBECONFIG=../02-Multi-node_cluster/vagrant/kubeconfig.yaml
-```
-
 You don’t want sensitive information such as a database password or an API key kept around in clear text. Secrets provide you with a mechanism to use such information in a safe and reliable way with the following properties:
 
 - Secrets are namespaced objects, that is, exist in the context of a namespace
@@ -14,23 +8,57 @@ You don’t want sensitive information such as a database password or an API key
 - A per-secret size limit of 1MB exists
 - The API server stores secrets as plaintext in etcd
 
+![Kubernetes](https://img.shields.io/badge/Kubernetes-informational?logo=Kubernetes&color=blue&logoColor=white&style=for-the-badge&logoWidth=30)
+
+![OpenShift](https://img.shields.io/badge/OpenShift-informational?logo=Red%20Hat%20Open%20Shift&color=black&logoColor=red&style=for-the-badge&logoWidth=30)
+
+
+## Prerequisites
+
+Having completed the following labs:
+
+- [00 - Prerequisites](../00-Prerequisites/README.md)
+- [02 - Provision the environment](../02-Provision_the_environment/README.md)
+- [03 - OKD login](../03-OKD_login/README.md)
+- [04 - Project](../04-Project/README.md)
+
+Having logged in using the **developer** account:
+
+```console
+$ oc login -u developer -p developer https://api.crc.testing:6443     
+Login successful.
+
+You have one project on this server: "test"
+
+Using project "test".
+```
+
+Make sure to use the **test** project.
+
+```console
+$ oc project test
+Already on project "test" on server "https://api.crc.testing:6443".
+```
+
+## Secret as a file in the Container
+
 Let’s create a file apikey that holds a (made-up) API key:
 
 ```console
 $ echo -n "A19fh68B001j" > ./apikey.txt
 ```
 
-This file can be used to create a Kubernetes Secret
+This file can be used to create a Kubernetes/OpenShift Secret
 
 ```console
-$ kubectl create secret generic apikey --from-file=./apikey.txt
+$ oc create secret generic apikey --from-file=./apikey.txt
 secret/apikey created
 ```
 
 Inspect the secret
 
 ```console
-$ kubectl describe secrets/apikey
+$ oc describe secrets/apikey
 Name:         apikey
 Namespace:    default
 Labels:       <none>
@@ -47,7 +75,7 @@ Now let’s use the secret in a pod via a volume:
 
 
 ```console
-$ kubectl apply -f pod-secretvolume.yaml
+$ oc apply -f pod-secretvolume.yaml
 pod/pod-secretvolume created
 ```
 
@@ -76,7 +104,7 @@ This pod declaration contains the following snippet, which takes a secret by nam
 If we now exec into the container we see the secret mounted at /tmp/apikey:
 
 ```console
-$ kubectl exec -it pod-secretvolume -c shell -- bash
+$ oc exec -it pod-secretvolume -c shell -- bash
 [root@pod-secretvolume /]# mount | grep apikey
 tmpfs on /tmp/apikey type tmpfs (ro,relatime)
 [root@pod-secretvolume /]# cat /tmp/apikey/apikey.txt
@@ -84,10 +112,12 @@ A19fh68B001j
 [root@pod-secretvolume /]# exit
 ```
 
-The next example shows how to inject a secret as a container environment variable.
+## Secret as an environment variable in the Container
+
+This example shows how to inject a secret as a container environment variable.
 
 ```console
-$ kubectl apply -f pod-secretenv.yaml 
+$ oc apply -f pod-secretenv.yaml 
 pod/pod-secretenv created
 ```
 
@@ -110,7 +140,7 @@ This pod declaration contains the following snippet, which take a secret by name
 Now if we now exec into the container you can see your secret injected as an environment variable:
 
 ```console
-$ kubectl exec -it pod-secretenv -c shell -- bash
+$ oc exec -it pod-secretenv -c shell -- bash
 [root@pod-secretvolume /]# env | grep APIKEY
 SECRET_APIKEY=A19fh68B001j
 [root@pod-secretvolume /]# exit
@@ -120,7 +150,7 @@ SECRET_APIKEY=A19fh68B001j
 You can remove the pods and the secret with:
 
 ```console
-$  kubectl delete pod/pod-secretenv pod/pod-secretvolume secret/apikey 
+$  oc delete pod/pod-secretenv pod/pod-secretvolume secret/apikey 
 pod "pod-secretenv" deleted
 pod "pod-secretvolume" deleted
 secret "apikey" deleted

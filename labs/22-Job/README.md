@@ -1,54 +1,80 @@
 # Job
 
-Before using **kubectl**, please set the **KUBECONFIG** environment variable to point to the right kubeconfig file.
+A job in Kubernetes/OpenShift is a supervisor for pods carrying out batch processes, that is, a process that runs for a certain time to completion, for example a calculation or a backup operation.
+
+![Kubernetes](https://img.shields.io/badge/Kubernetes-informational?logo=Kubernetes&color=blue&logoColor=white&style=for-the-badge&logoWidth=30)
+
+![OpenShift](https://img.shields.io/badge/OpenShift-informational?logo=Red%20Hat%20Open%20Shift&color=black&logoColor=red&style=for-the-badge&logoWidth=30)
+
+
+## Prerequisites
+
+Having completed the following labs:
+
+- [00 - Prerequisites](../00-Prerequisites/README.md)
+- [02 - Provision the environment](../02-Provision_the_environment/README.md)
+- [03 - OKD login](../03-OKD_login/README.md)
+- [04 - Project](../04-Project/README.md)
+
+Having logged in using the **developer** account:
 
 ```console
-$ export KUBECONFIG=../02-Multi-node_cluster/vagrant/kubeconfig.yaml
+$ oc login -u developer -p developer https://api.crc.testing:6443     
+Login successful.
+
+You have one project on this server: "test"
+
+Using project "test".
 ```
 
-A job in Kubernetes is a supervisor for pods carrying out batch processes, that is, a process that runs for a certain time to completion, for example a calculation or a backup operation.
+Make sure to use the **test** project.
+
+```console
+$ oc project test
+Already on project "test" on server "https://api.crc.testing:6443".
+```
+
+## Job
 
 Let’s create a job called countdown that supervises a pod counting from 9 down to 1:
 
 ```console
-$ kubectl apply -f job.yaml
+$ oc apply -f job.yaml
 job.batch/countdown created
 ```
 
 You can see the job and the pod  like so:
 
 ```console
-$ kubectl get jobs
+$ oc get jobs
 NAME        COMPLETIONS   DURATION   AGE
-countdown   1/1           2s         2s
+countdown   1/1           33s        96s
 ```
 
 
 ```console
-$ kubectl get pods
+$ oc get pods
 NAME              READY   STATUS      RESTARTS   AGE
-countdown-xjmhc   0/1     Completed   0          75s
+countdown-lqlcr   0/1     Completed   0          107s
 ```
 
 To learn more about the status of the job, do:
 
 ```console
-$ kubectl describe jobs/countdown
+$ oc describe jobs/countdown
 Name:           countdown
-Namespace:      default
-Selector:       controller-uid=18e1ee54-13b3-42ba-b561-42ab030d64bf
-Labels:         controller-uid=18e1ee54-13b3-42ba-b561-42ab030d64bf
+Namespace:      test
+Selector:       controller-uid=fbdd3b03-59e7-4560-a833-84f69179e138
+Labels:         controller-uid=fbdd3b03-59e7-4560-a833-84f69179e138
                 job-name=countdown
-Annotations:    kubectl.kubernetes.io/last-applied-configuration:
-                  {"apiVersion":"batch/v1","kind":"Job","metadata":{"annotations":{},"name":"countdown","namespace":"default"},"spec":{"template":{"metadata...
-Parallelism:    1
+Annotations:    Parallelism:  1
 Completions:    1
-Start Time:     Tue, 24 Sep 2019 17:17:25 +0200
-Completed At:   Tue, 24 Sep 2019 17:17:27 +0200
-Duration:       2s
+Start Time:     Thu, 29 Oct 2020 19:37:21 +0100
+Completed At:   Thu, 29 Oct 2020 19:37:54 +0100
+Duration:       33s
 Pods Statuses:  0 Running / 1 Succeeded / 0 Failed
 Pod Template:
-  Labels:  controller-uid=18e1ee54-13b3-42ba-b561-42ab030d64bf
+  Labels:  controller-uid=fbdd3b03-59e7-4560-a833-84f69179e138
            job-name=countdown
   Containers:
    counter:
@@ -63,15 +89,16 @@ Pod Template:
     Mounts:       <none>
   Volumes:        <none>
 Events:
-  Type    Reason            Age    From            Message
-  ----    ------            ----   ----            -------
-  Normal  SuccessfulCreate  2m51s  job-controller  Created pod: countdown-xjmhc
+  Type    Reason            Age   From            Message
+  ----    ------            ----  ----            -------
+  Normal  SuccessfulCreate  116s  job-controller  Created pod: countdown-lqlcr
+  Normal  Completed         83s   job-controller  Job completed
 ```
 
 And to see the output of the job via the pod it supervised, execute:
 
 ```console
-$ kubectl logs countdown-xjmhc
+$ oc logs countdown-lqlcr
 9
 8
 7
@@ -86,23 +113,25 @@ $ kubectl logs countdown-xjmhc
 To clean up, use the delete verb on the job object which will remove all the supervised pods:
 
 ```console
-$ kubectl delete jobs/countdown
+$ oc delete jobs/countdown
 job.batch "countdown" deleted
 ```
+
+## CronJob
 
 Let's try to schedule a CronJob. CronJobs are useful to start a  computation or activity on pre-defined interval.
 
 To try a CronJob resource apply the **cron-job.yaml** config.
 
 ```console
-$ kubectl apply -f cron-job.yaml
+$ oc apply -f cron-job.yaml
 cronjob.batch/hello created
 ```
 
 To inspect the CronJob schedule:
 
 ```console
-$ kubectl get cronjob hello
+$ oc get cronjob hello
 NAME    SCHEDULE      SUSPEND   ACTIVE   LAST SCHEDULE   AGE
 hello   */1 * * * *   False     0        <none>          15s
 ```
@@ -110,18 +139,15 @@ hello   */1 * * * *   False     0        <none>          15s
 As you can see from the results of the command, the cron job has not scheduled or run any jobs yet. Watch for the job to be created in around one minute:
 
 ```console
-$ kubectl get jobs --watch
+$ oc get jobs --watch
 NAME               COMPLETIONS   DURATION   AGE
-hello-1569340620   1/1           4s         65s
-hello-1569340680   1/1           4s         5s
+hello-1603996920   0/1                      1s
+hello-1603996920   0/1           0s         1s
 ```
 
 To delete the CronJob:
 
 ```console
-$ kubectl delete -f cron-job.yaml
+$ oc delete -f cron-job.yaml
 cronjob.batch "hello" deleted
 ```
-
-
-

@@ -46,6 +46,12 @@ Learning OpenShift Kubernetes Distribution
 
 [20 - Secret](./labs/20-Secret/README.md)
 
+[21 - StatefulSet](./labs/21-StatefulSet/README.md)
+
+[22 - Job](./labs/22-Job/README.md)
+
+[23 - DaemonSet](./labs/23-DaemonSet/README.md)
+
 ## Appendices
 
 [A - Sync copy of forked repo](./appendices/A-Sync_copy_of_forked_repo/README.md)

@@ -42,7 +42,6 @@ spec:
       name: data
     spec:
       accessModes: [ "ReadWriteMany" ]
-      storageClassName: "nfs-dynamic"
       resources:
         requests:
           storage: 1Gi
