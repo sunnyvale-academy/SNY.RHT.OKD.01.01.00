@@ -1,6 +1,6 @@
 # Route
 
-An OpenShift Route exposes a service at a host name, such as www.example.com, so that external clients can reach it by name (similar to Ingress, but OpenShift Routes have been invented a long time before Kubernetes Ingress resource came along).
+An OpenShift **Route** exposes a service at a host name, such as www.example.com, so that external clients can reach it by name (similar to Ingress, but OpenShift Routes have been invented a long time before Kubernetes Ingress resource came along).
 
 When a Route object is created on OpenShift, it gets picked up by the built-in HAProxy load balancer in order to expose the requested service and make it externally available with the given configuration.
 
@@ -34,7 +34,7 @@ $ oc project test
 Already on project "test" on server "https://api.crc.testing:6443".
 ```
 
-## Deploy the application to be accessed externally
+## Deploy the applications to be accessed externally
 
 First we create the backend **Deployments** and **Services** used later in Route examples.
 
