@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: busybox-pvc-deployment
+  labels:
+    app: busybox
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: busybox
+  template:
+    metadata:
+        labels:
+          app: busybox
+    spec:
+      containers:
+      - name: busybox-pvc-container
+        image: busybox 
+        command: ["/bin/ash", "-ec", "echo \"\" > /usr/share/busybox/index.html && while (true); do echo \"$(hostname) - $(date)<br>\" >> /usr/share/busybox/index.html && sleep 5 ; done"]
+        volumeMounts:
+        - name: myvol-2 
+          mountPath: /usr/share/busybox  
+          readOnly: false
+      volumes:
+      - name: myvol-2
+        persistentVolumeClaim:
+          claimName: my-pvc 

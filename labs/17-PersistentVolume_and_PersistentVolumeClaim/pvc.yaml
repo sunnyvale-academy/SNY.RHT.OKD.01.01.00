@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: my-pvc  
+spec:
+ # storageClassName: generic
+  accessModes:
+  - ReadWriteMany      
+  resources:
+     limits:
+       storage: 1Gi
+     requests:
+       storage: 1Gi 
+ # Get the Volume by name (another way can be using labels and selectors)
+  volumeName: "pv0030"
