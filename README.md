@@ -36,6 +36,8 @@ Learning OpenShift Kubernetes Distribution
 
 [15 - Route](./labs/15-Route/README.md)
 
+[16 - Volume](./labs/16-Volume/README.md)
+
 ## Appendices
 
 [A - Sync copy of forked repo](./appendices/A-Sync_copy_of_forked_repo/README.md)
