@@ -218,13 +218,107 @@ An HTTPS route can also be described using YAML, please refer to the same route 
 
 ## Path based Route
 
+Path based routes specify a path component that can be compared against a URL such that multiple routes can be served using the same host name, each with a different path.
+
+
+Create the nginx path-based Route
 
 ```console
 $ oc apply -f nginx-path-based-route.yaml      
 route.route.openshift.io/nginx-path-based-route created
 ```
 
+Create the whoami path-based Route
+
 ```console
 $ oc apply -f whoami-path-based-route.yaml      
 route.route.openshift.io/whoami-path-based-route created
 ```
+
+See the Routes just created
+
+```console
+$ oc get routes
+NAME                      HOST/PORT         PATH          SERVICES         PORT    TERMINATION   WILDCARD
+nginx-path-based-route    api.crc.testing   /index.html   nginx-service    <all>                 None
+whoami-path-based-route   api.crc.testing   /whoami       whoami-service   <all>                 None
+```
+
+Test the nginx path-based Route
+
+```console
+$  curl http://api.crc.testing/index.html
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+<style>
+    body {
+        width: 35em;
+        margin: 0 auto;
+        font-family: Tahoma, Verdana, Arial, sans-serif;
+    }
+</style>
+</head>
+<body>
+<h1>Welcome to nginx!</h1>
+<p>If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.</p>
+
+<p>For online documentation and support please refer to
+<a href="http://nginx.org/">nginx.org</a>.<br/>
+Commercial support is available at
+<a href="http://nginx.com/">nginx.com</a>.</p>
+
+<p><em>Thank you for using nginx.</em></p>
+</body>
+</html>
+```
+
+Test the whoami path-based Route
+
+```console
+$ curl http://api.crc.testing/whoami 
+Hostname: whoami-deployment-65bf559756-ztrvc
+IP: 127.0.0.1
+IP: ::1
+IP: 10.116.0.70
+IP: fe80::1438:80ff:fe23:4767
+RemoteAddr: 10.116.0.1:56462
+GET /whoami HTTP/1.1
+Host: api.crc.testing
+User-Agent: curl/7.45.0
+Accept: */*
+Forwarded: for=192.168.64.1;host=api.crc.testing;proto=http
+X-Forwarded-For: 192.168.64.1
+X-Forwarded-Host: api.crc.testing
+X-Forwarded-Port: 80
+X-Forwarded-Proto: http
+```
+
+## Creanup
+
+Delete Routes
+
+```console
+$ oc delete routes --all
+route.route.openshift.io "nginx-path-based-route" deleted
+route.route.openshift.io "whoami-path-based-route" deleted
+```
+
+Delete Services
+
+```console
+$ oc delete service --all
+service "nginx-service" deleted
+service "whoami-service" deleted
+```
+
+Delete Deployments
+
+```console
+$ oc delete deploy --all
+deployment.apps "nginx-deployment" deleted
+deployment.apps "whoami-deployment" deleted
+```
+
