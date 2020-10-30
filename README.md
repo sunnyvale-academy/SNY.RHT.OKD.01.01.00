@@ -52,6 +52,10 @@ Learning OpenShift Kubernetes Distribution
 
 [23 - DaemonSet](./labs/23-DaemonSet/README.md)
 
+[24 - Template](./labs/24-Template/README.md)
+
+[25 - Helm](./labs/25-Helm/README.md)
+
 ## Appendices
 
 [A - Sync copy of forked repo](./appendices/A-Sync_copy_of_forked_repo/README.md)
