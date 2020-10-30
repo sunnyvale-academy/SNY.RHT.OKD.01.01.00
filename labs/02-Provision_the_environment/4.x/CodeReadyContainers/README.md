@@ -38,6 +38,18 @@ INFO Will use root access: change ownership of /etc/resolver/testing
 Setup is complete, you can now run 'crc start' to start the OpenShift cluster
 ```
 
+Configure VM cpus and memory (if needed)
+
+RAM in MB (default 8192MB)
+```console
+$ crc config set memory 12228
+```
+
+CPUS (default 4)
+```console
+$ crc config set cpus 8
+```
+
 Now start the VM, be sure to paste the content of pull-secret file when prompted.
 
 ```console
@@ -94,7 +106,7 @@ Cache Usage:     12.8GB
 Cache Directory: /Users/myuser/.crc/cache
 ```
 
-To get started with CRC, please have a look of the following [documentation](https://access.redhat.com/documentation/en-us/red_hat_codeready_containers/1.15/)
+To get started with CRC, please have a look of the following [documentation](https://access.redhat.com/documentation/en-us/red_hat_codeready_containers/)
 
 When done, stop the cluster using:
 

@@ -36,11 +36,16 @@ to build a new example application in Ruby. Or use kubectl to deploy a simple Ku
     kubectl create deployment hello-node --image=gcr.io/hello-minikube-zero-install/hello-node
 ```
 
-Now assign the newly created project to "developer" user
+Now a couple of roles to the "developer" user
 
 ```console
 $ oc adm policy add-role-to-user admin developer
 clusterrole.rbac.authorization.k8s.io/admin added: "developer"
+```
+
+```console
+$ oc adm policy add-cluster-role-to-user cluster-admin developer
+clusterrole.rbac.authorization.k8s.io/cluster-admin added: "developer"
 ```
 
 To get a list of the users who have access to a project, and using what role, just run:
@@ -59,5 +64,5 @@ In order to execute the next labs, apply all the following policies to the newly
 
 ```console
 oc adm policy add-scc-to-user anyuid system:serviceaccount:test:default
-
+oc adm policy add-role-to-user system:controller:persistent-volume-binder developer
 ```
