@@ -56,6 +56,8 @@ Learning OpenShift Kubernetes Distribution
 
 [25 - Helm](./labs/25-Helm/README.md)
 
+[26 - Request_and_limit](./labs/26-Request_and_limit/README.md)
+
 ## Appendices
 
 [A - Sync copy of forked repo](./appendices/A-Sync_copy_of_forked_repo/README.md)
