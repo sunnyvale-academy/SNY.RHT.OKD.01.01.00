@@ -152,6 +152,16 @@ simple-http-server-1-deploy   0/1     Completed   0          3m7s
 simple-http-server-1-fbrd4    1/1     Running     0          3m4s
 ```
 
+Verify that within the Pod, an Nginx v. 1.7.9 is running 
+
+```console
+$ oc exec -ti simple-http-server-1-fbrd4 -- nginx  -V
+nginx version: nginx/1.7.9
+built by gcc 4.7.2 (Debian 4.7.2-5) 
+TLS SNI support enabled
+configure arguments: --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx --conf-path=/etc/nginx/nginx.conf --error-log-path=/var/log/nginx/error.log --http-log-path=/var/log/nginx/access.log --pid-path=/var/run/nginx.pid --lock-path=/var/run/nginx.lock --http-client-body-temp-path=/var/cache/nginx/client_temp --http-proxy-temp-path=/var/cache/nginx/proxy_temp --http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp --http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp --http-scgi-temp-path=/var/cache/nginx/scgi_temp --user=nginx --group=nginx --with-http_ssl_module --with-http_realip_module --with-http_addition_module --with-http_sub_module --with-http_dav_module --with-http_flv_module --with-http_mp4_module --with-http_gunzip_module --with-http_gzip_static_module --with-http_random_index_module --with-http_secure_link_module --with-http_stub_status_module --with-http_auth_request_module --with-mail --with-mail_ssl_module --with-file-aio --with-http_spdy_module --with-cc-opt='-g -O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2' --with-ld-opt='-Wl,-z,relro -Wl,--as-needed' --with-ipv6
+```
+
 Now, we are going to modify the ImageStream's **latest** tag to point to a newer version nginx Docker image (ie: 1.19.3)
 
 ```console
@@ -159,7 +169,32 @@ $ oc tag docker.io/nginx:1.19.3 my-nginx-is:latest
 Tag my-nginx-is:latest set to docker.io/nginx:1.19.3.
 ```
 
-In this case, as you notice a new deployer Pod has been created as well as a new nginx Pod (from the ImageStream **latest**)
+Describe the ImageStream again to see the new latest tag.
+
+```console
+$ oc describe is my-nginx-is 
+Name:                   my-nginx-is
+Namespace:              test
+Created:                9 minutes ago
+Labels:                 <none>
+Annotations:            openshift.io/image.dockerRepositoryCheck=2020-11-11T11:30:54Z
+Image Repository:       default-route-openshift-image-registry.apps-crc.testing/test/my-nginx-is
+Image Lookup:           local=false
+Unique Images:          2
+Tags:                   1
+
+latest
+  tagged from docker.io/nginx:1.19.3
+
+  * docker.io/nginx@sha256:4949aa7259aa6f827450207db5ad94cabaa9248277c6d736d5e1975d200c7e43
+      27 seconds ago
+    nginx@sha256:e3456c851a152494c3e4ff5fcc26f240206abac0c9d794affb40e0714846c451
+      9 minutes ago
+```
+
+The latest tag now points to docker.io/nginx:1.19.3.
+
+As you notice, a new deployer Pod has been created as well as a new nginx Pod (from the ImageStream **latest**)
 
 ```console
 $ oc get pods    
