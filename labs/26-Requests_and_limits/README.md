@@ -158,7 +158,7 @@ As you can see, we have verified the following situation:
 Now let's try to overload the pod memory behind its limit (100Mi) by changing the stress argument (we configure stress to take up to 150m)
 
 ```console
-$ oc delete -f pod.yaml ; cat pod.yaml| sed -e 's/40m/60m/' | oc apply -f -
+$ oc delete -f pod.yaml ; cat pod.yaml| sed -e 's/40m/130m/' | oc apply -f -
 pod "resource-tester-pod" deleted
 pod/resource-tester-pod created
 ```
