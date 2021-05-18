@@ -1,5 +1,15 @@
 # ImageStream
 
+An image stream acts as a pointer to a set of images. It’s like a shortcut or a reference.
+
+An image stream doesn’t contain the Docker image itself. It’s a signpost to images, which can be in any registry – either OpenShift’s internal registry, or an external one.
+
+An image stream is a single pointer to a set of related images.
+
+One image stream can contain many different tags (latest, develop, 1.0, etc), each of which points to an image in a registry.
+
+![ImageStream](img/is.png)
+
 ![OpenShift](https://img.shields.io/badge/OpenShift-informational?logo=Red%20Hat%20Open%20Shift&color=black&logoColor=red&style=for-the-badge&logoWidth=30)
 
 ## Prerequisites
