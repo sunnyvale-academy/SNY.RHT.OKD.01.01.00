@@ -56,7 +56,14 @@ Learning OpenShift Kubernetes Distribution
 
 [25 - Helm](./labs/25-Helm/README.md)
 
-[26 - Request_and_limit](./labs/26-Request_and_limit/README.md)
+[26 - Operator framework](./labs/26-Operator_framework/README.md)
+
+[27 - Monitoring](./labs/27-Monitoring/README.md)
+
+[28 - Request_and_limit](./labs/28-Request_and_limit/README.md)
+
+[29 - Horizontal Pod Autoscaler](./labs/29-Horizontal_Pod_Autoscaler/README.md)
+
 
 ## Appendices
 

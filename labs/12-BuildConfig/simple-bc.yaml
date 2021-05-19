@@ -7,14 +7,15 @@ spec:
   source:
     git:
       ref: master
-      uri: 'https://github.com/openshift/ruby-ex.git'
+      uri: 'https://github.com/sclorg/s2i-ruby-container.git'
+      path: '2.7'
     type: Git
   strategy:
     type: Source
     sourceStrategy:
       from:
         kind: ImageStreamTag
-        name: 'ruby:2.4'
+        name: 'ruby:latest'
         # namespace: openshift
       env: []
   output: 
