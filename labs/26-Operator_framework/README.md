@@ -161,12 +161,15 @@ Get the Kafka pod list:
 
 ```console
 $ oc get pods
-
+my-kafka-cluster-with-operator-kafka-0              1/1     Running    0          4s
+my-kafka-cluster-with-operator-zookeeper-0          1/1     Running    0          38s
+strimzi-cluster-operator-v0.23.0-5d48c6bfbf-tnsfp   1/1     Running    2          30m
 ```
 
-You can delete the cluster now:
+You can delete both the Kafka cluster and the operator now:
 
 ```console
-$ oc delete -f .               
+$ oc delete -f . ; oc delete clusterserviceversion strimzi-cluster-operator.v0.23.0             
 kafka.kafka.strimzi.io "my-kafka-cluster-with-operator" deleted
+subscription.operators.coreos.com "strimzi-kafka-operator" deleted
 ```
