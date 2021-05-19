@@ -18,6 +18,8 @@ Having completed the following labs:
 - [00 - Prerequisites](../00-Prerequisites/README.md)
 - [02 - Provision the environment](../02-Provision_the_environment/README.md)
 - [03 - OKD login](../03-OKD_login/README.md)
+- [04 - Project](../04-Project/README.md)
+- [27 - Monitoring](../27-Monitoring/README.md)
 
 Having logged in using the **kubeadmin** account:
 
@@ -36,65 +38,6 @@ Make sure to use the **test** project.
 $ oc project test
 Already on project "test" on server "https://api.crc.testing:6443".
 ```
-
-## Enanble monitoring 
-
-Before running this lab, you have to enable monitoring API (thus the **cluster-monitoring-operator** operator)
-
-Run this command, and note down the integer ID near to **cluster-monitoring-operator** (in this case is **0**).
-
-```
-$ oc get clusterversion version -ojsonpath='{range .spec.overrides[*]}{.name}{"\n"}{end}' | nl -v 0
-     0  cluster-monitoring-operator
-     1  machine-config-operator
-     2  etcd-quorum-guard
-     3  machine-api-operator
-     4  cluster-autoscaler-operator
-     5  insights-operator
-     6  prometheus-k8s
-     7  cloud-credential-operator
-     8  csi-snapshot-controller-operator
-     9  cluster-storage-operator
-    10  kube-storage-version-migrator-operator
-    11  cluster-node-tuning-operator
-```
-
-Then, run this command below using the integer ID you took from the last one as the final element of path **/spec/overrides/** (in this case the result path will be **/spec/overrides/0**).
-
-```console
-$ oc patch clusterversion/version --type='json' -p '[{"op":"remove", "path":"/spec/overrides/0"}]'  
-clusterversion.config.openshift.io/version patched
-```
-
-In this way, after a couple of minutes, all the necessary Pods will be up and running and let you inspect the OpenShift cluster metrics.
-
-To check that everything works as expected (pay attention to be logged in as **kubeadmin**):
-
-```console
-$ oc get pods -n openshift-monitoring
-NAME                                          READY   STATUS       RESTARTS   AGE
-alertmanager-main-0                           5/5     Running      0          7h15m
-alertmanager-main-1                           5/5     Running      0          7h15m
-alertmanager-main-2                           5/5     Running      0          7h15m
-cluster-monitoring-operator-f557f6c97-gmt8m   2/2     Running      0          7h17m
-grafana-689d8d5766-5nw5m                      2/2     Running      0          7h16m
-kube-state-metrics-cf7bc857f-6n88b            3/3     Running      0          7h16m
-node-exporter-9m82c                           2/2     Running      0          7h16m
-openshift-state-metrics-85b46b6f6c-5cvwn      3/3     Running      0          58m
-openshift-state-metrics-85b46b6f6c-rpm48      0/3     Preempting   0          61m
-openshift-state-metrics-85b46b6f6c-zn6vp      0/3     Preempting   0          7h16m
-prometheus-adapter-5cfd948cd8-9lfwg           1/1     Running      0          7h16m
-prometheus-adapter-5cfd948cd8-kfjkj           1/1     Running      0          7h16m
-prometheus-k8s-0                              7/7     Running      1          7h14m
-prometheus-k8s-1                              7/7     Running      1          7h14m
-prometheus-operator-6867b84869-4h65k          2/2     Running      3          7h16m
-telemeter-client-77f9c75896-dgdzh             3/3     Running      0          7h16m
-thanos-querier-5f6dc9f8c5-6qgb2               4/4     Running      1          7h16m
-thanos-querier-5f6dc9f8c5-p64lq               4/4     Running      1          7h16m
-```
-
-If one ore more Pods are not **Running** can be a memory/cpu issue. To increase the resources of CRC VM plase have a look of the [Provision the environment lab](../02-Provision_the_environment/4.x/CodeReadyContainers/README.md)
-
 
 ## Applying resource requests and limits
 

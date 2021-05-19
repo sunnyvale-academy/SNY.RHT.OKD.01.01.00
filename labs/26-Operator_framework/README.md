@@ -166,6 +166,8 @@ my-kafka-cluster-with-operator-zookeeper-0          1/1     Running    0        
 strimzi-cluster-operator-v0.23.0-5d48c6bfbf-tnsfp   1/1     Running    2          30m
 ```
 
+## Cleanup
+
 You can delete both the Kafka cluster and the operator now:
 
 ```console
