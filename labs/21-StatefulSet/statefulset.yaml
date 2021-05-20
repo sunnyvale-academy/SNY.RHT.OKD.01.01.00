@@ -8,7 +8,7 @@ spec:
     matchLabels:
       app: mehdb
   serviceName: "mehdb"
-  replicas: 10
+  replicas: 3
   template:
     metadata:
       labels:
