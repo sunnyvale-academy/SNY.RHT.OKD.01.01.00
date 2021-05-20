@@ -109,6 +109,15 @@ service/nginx created
 
 If everything has been configured properly, if you point your browser to [http://api.crc.testing:31719](http://api.crc.testing:31719) you should be redirected to [http://www.sunnyvale.it](http://www.sunnyvale.it) website.
 
+or test it using oc cli:
+
+```console
+$ curl -vvv -L -H "Host: api.crc.testing" http://api.crc.testing:31719
+...
+```
+
+Yoou should see the HTML code of Sunnyvale's website.
+
 ## Cleanup
 
 To remove everything you created earlier:
