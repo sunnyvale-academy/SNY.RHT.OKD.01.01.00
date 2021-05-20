@@ -231,3 +231,9 @@ deployment.apps "prometheus-example-app" deleted
 After a couple of minutes we should see also an alert being triggered:
 
 ![Alert](img/firing_alert.png)
+
+## Clean up
+
+```console
+$ oc delete deploy/prometheus-example-app svc/prometheus-example-app servicemonitor/prometheus-example-monitor prometheusrule/example-alert
+```
