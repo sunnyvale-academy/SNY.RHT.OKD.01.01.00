@@ -90,6 +90,10 @@ thanos-querier-5f6dc9f8c5-p64lq               4/4     Running      1          7h
 If one ore more Pods are not **Running** can be a memory/cpu issue. To increase the resources of CRC VM plase have a look of the [Provision the environment lab](../02-Provision_the_environment/4.x/CodeReadyContainers/README.md)
 
 
+After a couple of minutes, you should see the first metrics arrive into the built-in monitoring dashboards
+
+![Mnitoring Dashboard](img/monitoring_dashboards.png)
+
 ## Prometheus Operator endpoint to scrape autoconfiguration
 
 Next step is to build upon this configuration to start monitoring any other services deployed in your cluster.
@@ -117,93 +121,113 @@ If there is a new metrics endpoint that matches the ServiceMonitor criteria, thi
 
 As you can see in the diagram above, the ServiceMonitor targets Kubernetes services, not the endpoints directly exposed by the pod(s).
 
-We already have a Prometheus deployment monitoring all the Kubernetes internal metrics (kube-state-metrics, node-exporter, Kubernetes API, etc) and we want to use the same to monitor also our applications.
-
-We need a service to scrape: CoreDNS is a fast and flexible DNS server that exposes Prometheus metrics out of the box (using port 9153), we will use it for testing ServiceMonitors.
+## Enabling monitoring for user-defined projects
 
 ```console
-$ helm repo add coredns https://coredns.github.io/helm
-"coredns" has been added to your repositories
+$ oc apply -f cluster-monitoring-config.yaml 
+configmap/cluster-monitoring-config created
+```
+
+Check that the prometheus-operator, prometheus-user-workload and thanos-ruler-user-workload pods are running in the openshift-user-workload-monitoring project. It might take a short while for the pods to start:
+
+```console
+$ oc -n openshift-user-workload-monitoring get pod
+NAME                                 READY   STATUS    RESTARTS   AGE
+prometheus-operator-9c8c8bcf-6tz8l   2/2     Running   0          3m5s
+prometheus-user-workload-0           5/5     Running   1          2m32s
+prometheus-user-workload-1           5/5     Running   1          2m31s
+thanos-ruler-user-workload-0         3/3     Running   0          2m37s
+thanos-ruler-user-workload-1         3/3     Running   0          2m37s
+```
+
+You can grant users permissions to monitor their own projects, by using the OpenShift CLI (oc).
+
+```console
+$ oc policy add-role-to-user monitoring-edit developer -n test    
+clusterrole.rbac.authorization.k8s.io/monitoring-edit added: "developer"
+```
+
+You can grant users permission to configure monitoring for user-defined projects.
+
+ ```console
+$ oc -n openshift-user-workload-monitoring adm policy add-role-to-user \
+  user-workload-monitoring-config-edit developer \
+  --role-namespace openshift-user-workload-monitoring
+role.rbac.authorization.k8s.io/user-workload-monitoring-config-edit added: "developer"
+```
+
+## Create a custom application to be monitored
+
+We need a service to scrape: 
+
+```console
+$ oc apply -f example_app.yaml
+deployment.apps/prometheus-example-app created
+service/prometheus-example-app created
+```
+
+
+The example application exposes its metrics at port 8080
+
+```
+$ oc get svc 
+NAME                     TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)    AGE
+prometheus-example-app   ClusterIP   10.217.5.246   <none>        8080/TCP   38s
+```
+
+To test the application metrics
+
+```console
+$ oc run -i --rm --tty busybox --image=busybox --restart=Never -- wget -qO- prometheus-example-app:8080/metrics 
+# HELP http_requests_total Count of all HTTP requests
+# TYPE http_requests_total counter
+http_requests_total{code="200",method="get"} 1
+# HELP version Version information about this binary
+# TYPE version gauge
+version{version="v0.1.0"} 1
+pod "busybox" deleted
+```
+
+Let's apply the [ServiceMonitor](example-servicemonitor.yaml)
+
+```
+$ oc apply -f example-servicemonitor.yaml
+servicemonitor.monitoring.coreos.com/prometheus-example-monitor created
 ```
 
 ```console
-$ helm repo update
-Hang tight while we grab the latest from your chart repositories...
-...Successfully got an update from the "coredns" chart repository
-...Successfully got an update from the "prometheus-community" chart repository
-Update Complete. ⎈Happy Helming!⎈
+$ oc get servicemonitor
+NAME                     AGE
+prometheus-example-monitor   15s
 ```
+
+If open the monitoring page on the OpenShift web console (Developer perspective), you can see the metrics coming from our service monitor
+
+![Custom Metric](img/custom_metric.png)
+
+Reference: https://docs.openshift.com/container-platform/4.7/monitoring/managing-metrics.html
+
+
+## How to configure Alert Rules
+
+In this demo we configure a rule named example-alert that fires an alert when the version metric exposed by the sample service becomes 0.
+
+```
+$ oc apply -f alert-rule.yaml
+prometheusrule.monitoring.coreos.com/example-alert created
+```
+Now that the rule is in place, we should see it in the Alert tab as well (use the Developer perspective)
+
+
+![Rule](img/rule.png)
+
+To test it, stop the monitored pod
 
 ```console
-$ helm install coredns --namespace=coredns coredns/coredns --create-namespace --set prometheus.service.enabled=true
-NAME: coredns
-LAST DEPLOYED: Wed May  5 22:30:56 2021
-NAMESPACE: coredns
-STATUS: deployed
-REVISION: 1
-TEST SUITE: None
-NOTES:
-CoreDNS is now running in the cluster as a cluster-service.
-
-It can be tested with the following:
-
-1. Launch a Pod with DNS tools:
-
-kubectl run -it --rm --restart=Never --image=infoblox/dnstools:latest dnstools
-
-2. Query the DNS server:
-
-/ # host kubernetes
+$ kubectl delete deploy prometheus-example-app
+deployment.apps "prometheus-example-app" deleted
 ```
 
-CoreDNS expose its metrics at port 9153
+After a couple of minutes we should see also an alert being triggered:
 
-```
-$ kubectl get svc -n coredns
-NAME                      TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)         AGE
-coredns-coredns           ClusterIP   10.108.222.137   <none>        53/UDP,53/TCP   3s
-coredns-coredns-metrics   ClusterIP   10.105.181.229   <none>        9153/TCP        3s
-```
-
-Let's apply the [ServiceMonitor](coredns-servicemonitor.yaml)
-
-```
-$ kubectl apply -f coredns-servicemonitor.yaml 
-servicemonitor.monitoring.coreos.com/coredns-servicemonitor created
-```
-
-If you go back to our Prometheus instance GUI after a few minutes lates (using port-forward on port 9090->9090), you should see a new target being monitored (our CoreDNS instance)
-
-![Prometheus Target](img/7.png)
-
-And metrics should have popped out as well
-
-![Prometheus Metrics](img/8.png)
-
-## Prometheus Operator – How to configure Alert Rules
-
-In the existing Prometheus deployment there is a configuration block to filter and match these objects:
-
-```yaml
-ruleSelector:
-      matchLabels:
-        app: kube-prometheus-stack
-        release: prometheus
-```
-
-If you define an object containing the PromQL rules you desire and matching the desired metadata, they will be automatically added to the Prometheus servers’ configuration.
-
-This object is described in [dead-man-switch-rule.yaml](dead-man-switch-rule.yaml), let's apply it.
-
-```
-$ kubectl apply -f dead-man-switch-rule.yaml
-servicemonitor.monitoring.coreos.com/coredns-servicemonitor created
-```
-
-As soon as you apply the rule file, a new rule is being discovered by Prometheus
-
-![Rule](img/9.png)
-
-And since this was an always-firing rule, after a couple of minutes we should see also an alert being triggered:
-
-![Alert](img/10.png)
+![Alert](img/firing_alert.png)

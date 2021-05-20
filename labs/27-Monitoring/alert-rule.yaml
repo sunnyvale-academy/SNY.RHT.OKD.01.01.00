@@ -1,0 +1,11 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: example-alert
+  namespace: test
+spec:
+  groups:
+  - name: example
+    rules:
+    - alert: VersionAlert
+      expr: absent(version{job="prometheus-example-app"}) == 1

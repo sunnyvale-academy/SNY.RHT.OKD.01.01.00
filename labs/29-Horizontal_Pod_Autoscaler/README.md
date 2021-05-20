@@ -88,24 +88,24 @@ resources:
 Run the following command:
 
 ```console
-$ kubectl apply -f application.yaml
+$ oc apply -f application.yaml
 deployment.apps/php-apache created
 service/php-apache created
 ```
 
 Now that the server is running, we will create the autoscaler (see [hpa.yaml](hpa.yaml))
 
-The following command will create a Horizontal Pod Autoscaler that maintains between 1 and 10 replicas of the Pods controlled by the php-apache deployment we created in the first step of these instructions. Roughly speaking, HPA will increase and decrease the number of replicas (via the deployment) to maintain an average CPU utilization across all Pods of 50% (since each pod requests 200 milli-cores by kubectl run), this means average CPU usage of 100 milli-cores). See here for more details on the algorithm.
+The following command will create a Horizontal Pod Autoscaler that maintains between 1 and 10 replicas of the Pods controlled by the php-apache deployment we created in the first step of these instructions. Roughly speaking, HPA will increase and decrease the number of replicas (via the deployment) to maintain an average CPU utilization across all Pods of 50% (since each pod requests 200 milli-cores by oc run), this means average CPU usage of 100 milli-cores). See here for more details on the algorithm.
 
 ```console
-$ kubectl apply -f hpa.yaml
+$ oc apply -f hpa.yaml
 horizontalpodautoscaler.autoscaling/test-hpa created
 ```
 
 We may check the current status of autoscaler by running:
 
 ```console
-$ kubectl get hpa
+$ oc get hpa
 NAME       REFERENCE               TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
 test-hpa   Deployment/php-apache   0%/50%    1         10        1          7m11s
 ```
@@ -115,7 +115,7 @@ Please note that the current CPU consumption is 0% as we are not sending any req
 Now, we will see how the autoscaler reacts to increased load. We will start a container, and send an infinite loop of queries to the php-apache service (please run it in a different terminal):
 
 ```console
-$ kubectl run -i --tty load-generator --rm --image=busybox --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://php-apache; done"
+$ oc run -i --tty load-generator --rm --image=busybox --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://php-apache; done"
 K!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!
 ...
 ```
@@ -123,7 +123,7 @@ K!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!OK!
 Within a minute or so, we should see the higher CPU load by executing:
 
 ```console
-$ kubectl get hpa
+$ oc get hpa
 NAME       REFERENCE               TARGETS    MINPODS   MAXPODS   REPLICAS   AGE
 test-hpa   Deployment/php-apache   250%/50%   1         10        5          10m
 ```
@@ -131,13 +131,13 @@ test-hpa   Deployment/php-apache   250%/50%   1         10        5          10m
 Here, CPU consumption has increased to 250% of the request. As a result, the deployment was resized to 5 replicas:
 
 ```console
-$ kubectl get deployment php-apache
+$ oc get deployment php-apache
 NAME         READY   UP-TO-DATE   AVAILABLE   AGE
 php-apache   5/5     5            5           14m
 ```
 
 ```console
-$ kubectl get pods | egrep "NAME|php-apache"
+$ oc get pods | egrep "NAME|php-apache"
 NAME                          READY   STATUS    RESTARTS   AGE
 php-apache-79544c9bd9-5rk5p   1/1     Running   0          14m
 php-apache-79544c9bd9-9w797   1/1     Running   0          119s
@@ -151,7 +151,7 @@ We will finish our example by stopping the user load (type CTRL+C on the termina
 Then we will verify the result state (after a minute or so):
 
 ```console
-$ kubectl get hpa
+$ oc get hpa
 NAME         REFERENCE                     TARGET       MINPODS   MAXPODS   REPLICAS   AGE
 php-apache   Deployment/php-apache/scale   0% / 50%     1         10        1          17m
 ```
@@ -159,7 +159,7 @@ php-apache   Deployment/php-apache/scale   0% / 50%     1         10        1   
 then
 
 ```console
-$ kubectl get deployment php-apache
+$ oc get deployment php-apache
 NAME         READY   UP-TO-DATE   AVAILABLE   AGE
 php-apache   1/1     1            1           27m
 ```
@@ -173,6 +173,6 @@ Here CPU utilization dropped to 0, and so HPA autoscaled the number of replicas 
 Don't forget to clean up the pod
 
 ```console
-$ oc delete -f pod.yaml
-pod "resource-tester-pod" deleted
+$ oc delete -f .
+
 ```
