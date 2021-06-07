@@ -42,7 +42,7 @@ Configure VM cpus and memory (if needed)
 
 RAM in MB (default 8192MB)
 ```console
-$ crc config set memory 12228
+$ crc config set memory 12500
 ```
 
 CPUS (default 4)
