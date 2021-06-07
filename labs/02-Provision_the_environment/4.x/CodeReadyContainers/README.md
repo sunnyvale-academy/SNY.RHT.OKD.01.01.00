@@ -38,11 +38,17 @@ INFO Will use root access: change ownership of /etc/resolver/testing
 Setup is complete, you can now run 'crc start' to start the OpenShift cluster
 ```
 
-Configure VM cpus and memory (if needed)
+Configure VM memory (if needed)
 
 RAM in MB (default 8192MB)
 ```console
 $ crc config set memory 12500
+```
+
+or, if you have enough physical memory and cpu, you can reserve even more resources to CRC:
+
+```console
+$ crc config set memory 14336
 ```
 
 CPUS (default 4)
