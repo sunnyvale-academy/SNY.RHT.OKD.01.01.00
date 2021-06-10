@@ -1,0 +1,11 @@
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata: 
+  name: "my-topic"
+  namespace: test
+  labels:
+    strimzi.io/cluster: "my-kafka-cluster-with-operator"
+spec:
+  partitions: 1
+  replicas: 1
+  topicName: MY-TOPIC
