@@ -179,6 +179,8 @@ ruby-example-6fc7969cf-wn4x9   1/1     Running     0          80s
 simple-bc-1-build              0/1     Completed   0          12m
 ```
 
+
+
 ```console
 $ oc logs ruby-example-6fc7969cf-wn4x9 
 [1] Puma starting in cluster mode...
@@ -206,6 +208,15 @@ $ oc logs ruby-example-6fc7969cf-wn4x9
 [1] - Worker 0 (PID: 10) booted, phase: 0
 [1] - Worker 2 (PID: 13) booted, phase: 0
 [1] - Worker 3 (PID: 16) booted, phase: 0
+```
+
+```console
+$ oc run -i --rm --tty busybox --image=busybox --restart=Never -- wget -qO- ruby-example:8080
+<body>
+<html>
+...
+</body>
+</html>
 ```
 
 ## Cleanup
