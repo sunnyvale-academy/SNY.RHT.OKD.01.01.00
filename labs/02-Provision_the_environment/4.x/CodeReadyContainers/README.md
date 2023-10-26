@@ -1,6 +1,6 @@
 # Provision the environment using CodeReady Containers
 
-Download CodeReady Containers (CRC) and the pull-request file [here](https://developers.redhat.com/products/codeready-containers/overview).
+Download CodeReady Containers (now renamed to OpenShift Local) and the pull-secret file [here](https://developers.redhat.com/products/codeready-containers/overview).
 
 You'll be asked for a RedHat account in order to download CRC.
 
