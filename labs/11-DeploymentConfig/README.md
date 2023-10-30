@@ -49,73 +49,61 @@ Already on project "test" on server "https://api.crc.testing:6443".
 ## Add an ImageStream to work with
 
 ```console
-$ oc import-image my-nginx-is:latest --from=nginx:1.7.9 --confirm  
+$ oc import-image my-nginx-is:latest --from=sunnyvaleit/nginx:1.7.9-openshift --confirm
 imagestream.image.openshift.io/my-nginx-is imported
 
 Name:                   my-nginx-is
 Namespace:              test
-Created:                About a minute ago
+Created:                Less than a second ago
 Labels:                 <none>
-Annotations:            kubectl.kubernetes.io/last-applied-configuration={"apiVersion":"image.openshift.io/v1","kind":"ImageStream","metadata":{"annotations":{"openshift.io/image.dockerRepositoryCheck":"2020-10-28T00:24:13Z"},"creationTimestamp":"2020-10-28T00:24:13Z","generation":2,"name":"my-nginx-is","namespace":"test","resourceVersion":"417238","selfLink":"/apis/image.openshift.io/v1/namespaces/test/imagestreams/my-nginx-is","uid":"74ca49af-c700-4b77-bfab-b40f6ccc4f10"},"spec":{"lookupPolicy":{"local":false},"tags":[{"annotations":null,"from":{"kind":"DockerImage","name":"nginx:1.7.9"},"generation":1,"importPolicy":{},"name":"1.7.9","referencePolicy":{"type":"Source"}}]},"status":{"dockerImageRepository":"image-registry.openshift-image-registry.svc:5000/test/my-nginx-is","publicDockerImageRepository":"default-route-openshift-image-registry.apps-crc.testing/test/my-nginx-is","tags":[{"items":[{"created":"2020-10-28T00:24:13Z","dockerImageReference":"nginx@sha256:e3456c851a152494c3e4ff5fcc26f240206abac0c9d794affb40e0714846c451","generation":1,"image":"sha256:e3456c851a152494c3e4ff5fcc26f240206abac0c9d794affb40e0714846c451"}],"tag":"1.7.9"},{"items":[{"created":"2020-10-28T00:24:23Z","dockerImageReference":"nginx@sha256:e3456c851a152494c3e4ff5fcc26f240206abac0c9d794affb40e0714846c451","generation":2,"image":"sha256:e3456c851a152494c3e4ff5fcc26f240206abac0c9d794affb40e0714846c451"}],"tag":"latest"}]}}
-
-                        openshift.io/image.dockerRepositoryCheck=2020-10-28T00:28:32Z
+Annotations:            openshift.io/image.dockerRepositoryCheck=2023-10-30T07:44:08Z
 Image Repository:       default-route-openshift-image-registry.apps-crc.testing/test/my-nginx-is
 Image Lookup:           local=false
 Unique Images:          1
-Tags:                   2
+Tags:                   1
 
 latest
-  tagged from nginx:1.7.9
+  tagged from sunnyvaleit/nginx:1.7.9-openshift
 
-  * nginx@sha256:e3456c851a152494c3e4ff5fcc26f240206abac0c9d794affb40e0714846c451
+  * sunnyvaleit/nginx@sha256:1cd75c9545c05f8a30d4416b6f113e909213c915a7bd7ab43842d28eacf2d328
       Less than a second ago
 
-1.7.9
-  tagged from nginx:1.7.9
-
-  * nginx@sha256:e3456c851a152494c3e4ff5fcc26f240206abac0c9d794affb40e0714846c451
-      About a minute ago
-
-Image Name:     my-nginx-is:1.7.9
-Docker Image:   nginx@sha256:e3456c851a152494c3e4ff5fcc26f240206abac0c9d794affb40e0714846c451
-Name:           sha256:e3456c851a152494c3e4ff5fcc26f240206abac0c9d794affb40e0714846c451
+Image Name:     my-nginx-is:1.7.9-openshift
+Docker Image:   sunnyvaleit/nginx@sha256:1cd75c9545c05f8a30d4416b6f113e909213c915a7bd7ab43842d28eacf2d328
+Name:           sha256:1cd75c9545c05f8a30d4416b6f113e909213c915a7bd7ab43842d28eacf2d328
 Created:        Less than a second ago
 Annotations:    image.openshift.io/dockerLayersOrder=ascending
-Image Size:     91.66MB in 14 layers
-Layers:         0B      sha256:a3ed95caeb02ffe68cdd9fd84406680ae93d633cb16422d00e8a7c22955b46d4
-                85.01MB sha256:6f5424ebd79619fda12f08fa4f611e1fdf38967ebc1a296dc1b403aa019f7b39
-                0B      sha256:a3ed95caeb02ffe68cdd9fd84406680ae93d633cb16422d00e8a7c22955b46d4
-                0B      sha256:a3ed95caeb02ffe68cdd9fd84406680ae93d633cb16422d00e8a7c22955b46d4
-                58.45kB sha256:d15444df170ac58f886d8efeed1bf901725cabba200d4670a27e3bf65f403b69
-                211B    sha256:e83f073daa67782dba3d35c1cfb6b81f845a3c84ce5b2cbf3a8af45a6dceecbc
-                0B      sha256:a3ed95caeb02ffe68cdd9fd84406680ae93d633cb16422d00e8a7c22955b46d4
-                6.591MB sha256:a4d93e4210232a57cc89d4eea1206f7557234be7f705c3f8773b1b445373f09c
-                11B     sha256:084adbca264718d53a89618ccfd0adf44dc8b91483b8ef98513637f9c1ba39a3
-                11B     sha256:c9cec474c523e8d7ad43b27197e0e52b6b1f37b2e1ca6799c672c221adc07ca9
-                0B      sha256:a3ed95caeb02ffe68cdd9fd84406680ae93d633cb16422d00e8a7c22955b46d4
-                0B      sha256:a3ed95caeb02ffe68cdd9fd84406680ae93d633cb16422d00e8a7c22955b46d4
-                0B      sha256:a3ed95caeb02ffe68cdd9fd84406680ae93d633cb16422d00e8a7c22955b46d4
-                0B      sha256:a3ed95caeb02ffe68cdd9fd84406680ae93d633cb16422d00e8a7c22955b46d4
-Image Created:  5 years ago
+Image Size:     39.95MB in 9 layers
+Layers:         37.22MB sha256:6f5424ebd79619fda12f08fa4f611e1fdf38967ebc1a296dc1b403aa019f7b39
+                30.23kB sha256:d15444df170ac58f886d8efeed1bf901725cabba200d4670a27e3bf65f403b69
+                244B    sha256:e83f073daa67782dba3d35c1cfb6b81f845a3c84ce5b2cbf3a8af45a6dceecbc
+                2.688MB sha256:a4d93e4210232a57cc89d4eea1206f7557234be7f705c3f8773b1b445373f09c
+                173B    sha256:084adbca264718d53a89618ccfd0adf44dc8b91483b8ef98513637f9c1ba39a3
+                171B    sha256:c9cec474c523e8d7ad43b27197e0e52b6b1f37b2e1ca6799c672c221adc07ca9
+                193B    sha256:ae2363c534d35ba9eea08627dd59141487cf50b594273a0503004f1225f24d1d
+                690B    sha256:6cdd8067e069cab3e18e66b550e7b699d7089fa0696f3e6b2a6c17a16eb2b025
+                536B    sha256:1b3f78478ffd32d00784095e54f1dc2b75ad9483443cd4ea0cefc25ea790d170
+Image Created:  3 days ago
 Author:         NGINX Docker Maintainers "docker-maint@nginx.com"
 Arch:           amd64
 Command:        nginx -g daemon off;
 Working Dir:    <none>
 User:           <none>
-Exposes Ports:  443/tcp, 80/tcp
+Exposes Ports:  443/tcp, 80/tcp, 8081/tcp
 Docker Labels:  <none>
 Environment:    PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
                 NGINX_VERSION=1.7.9-1~wheezy
 Volumes:        /var/cache/nginx
+
 ```
 
-This ImageStream has 1 tag **latest** that points to Docker image **nginx:1.7.9** (from DockerHub)
+This ImageStream has 1 tag **latest** that points to Docker image **sunnyvaleit/nginx:1.7.9-openshift** (from DockerHub)
 
 
 ```console
 $ oc get is   
 NAME          IMAGE REPOSITORY                                                           TAGS     UPDATED
-my-nginx-is   default-route-openshift-image-registry.apps-crc.testing/test/my-nginx-is   latest   5 seconds ago
+my-nginx-is   default-route-openshift-image-registry.apps-crc.testing/test/my-nginx-is   latest   24 seconds ago
 ```
 
 ## Create a DeploymentConfig
@@ -165,8 +153,8 @@ configure arguments: --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx --conf-path
 Now, we are going to modify the ImageStream's **latest** tag to point to a newer version nginx Docker image (ie: 1.19.3)
 
 ```console
-$ oc tag docker.io/nginx:1.19.3 my-nginx-is:latest
-Tag my-nginx-is:latest set to docker.io/nginx:1.19.3.
+$ oc tag docker.io/sunnyvaleit/nginx:1.19.3-openshift my-nginx-is:latest
+Tag my-nginx-is:latest set to docker.io/sunnyvaleit/nginx:1.19.3-openshift.
 ```
 
 Describe the ImageStream again to see the new latest tag.
@@ -175,21 +163,21 @@ Describe the ImageStream again to see the new latest tag.
 $ oc describe is my-nginx-is 
 Name:                   my-nginx-is
 Namespace:              test
-Created:                9 minutes ago
+Created:                7 seconds ago
 Labels:                 <none>
-Annotations:            openshift.io/image.dockerRepositoryCheck=2020-11-11T11:30:54Z
+Annotations:            openshift.io/image.dockerRepositoryCheck=2023-10-30T14:37:58Z
 Image Repository:       default-route-openshift-image-registry.apps-crc.testing/test/my-nginx-is
 Image Lookup:           local=false
 Unique Images:          2
 Tags:                   1
 
 latest
-  tagged from docker.io/nginx:1.19.3
+  tagged from docker.io/sunnyvaleit/nginx:1.19.3-openshift
 
-  * docker.io/nginx@sha256:4949aa7259aa6f827450207db5ad94cabaa9248277c6d736d5e1975d200c7e43
-      27 seconds ago
-    nginx@sha256:e3456c851a152494c3e4ff5fcc26f240206abac0c9d794affb40e0714846c451
-      9 minutes ago
+  * docker.io/sunnyvaleit/nginx@sha256:1f7686d02d35bbf88e57b8157b349cc6775fb85ac837ae9410170fade95ce449
+      2 seconds ago
+    sunnyvaleit/nginx@sha256:1cd75c9545c05f8a30d4416b6f113e909213c915a7bd7ab43842d28eacf2d328
+      7 seconds ago
 ```
 
 The latest tag now points to docker.io/nginx:1.19.3.
