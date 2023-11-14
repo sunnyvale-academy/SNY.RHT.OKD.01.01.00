@@ -13,6 +13,6 @@ spec:
       # The port that will be exposed by this service.
       port: 8080
       # Number or name of the port to access on the pods targeted by the service
-      targetPort: 80
+      targetPort: 8081
   selector:
     app: nginx
