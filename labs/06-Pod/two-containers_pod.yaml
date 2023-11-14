@@ -8,7 +8,7 @@ spec:
     emptyDir: {}
   containers:
   - name: first
-    image: nginx
+    image: sunnyvaleit/nginx:1.19.3-openshift
     volumeMounts:
     - name: html
       mountPath: /usr/share/nginx/html

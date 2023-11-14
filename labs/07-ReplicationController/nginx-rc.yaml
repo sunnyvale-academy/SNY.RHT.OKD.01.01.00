@@ -3,7 +3,6 @@ kind: ReplicationController
 metadata:
   name: nginx
 spec:
-  replicas: 2
   # The selector defines how we know which pods belong 
   # to this Replication Controller.
   selector:
@@ -16,6 +15,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx
+        image: sunnyvaleit/nginx:1.19.3-openshift
         ports:
         - containerPort: 80
+  replicas: 2
