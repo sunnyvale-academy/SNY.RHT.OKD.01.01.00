@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pvc-pod 
+  labels:
+    name: nginx-pvc-pod
+    app: nginx
+spec:
+  containers:
+    - name: nginx-pvc-container
+      image: sunnyvaleit/nginx:1.19.3-openshift
+      ports:
+        - name: web
+          containerPort: 8081
+      volumeMounts:
+        - name: myvol 
+          mountPath: /usr/share/nginx/html
+      securityContext:
+        #runAsUser: 1
+  volumes:
+    - name: myvol
+      persistentVolumeClaim:
+        claimName: test-pvc
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-nodeport-service
+spec:
+  type: NodePort
+  ports:
+    - name: http
+      # The port on each cluster node this service is exposed.
+      # Usually assigned by the system. If specified, it will be allocated to the service.
+      # NodePort range from 30000 to 32767
+      nodePort: 30100
+      # The port that will be exposed by this service.
+      port: 8080
+      # Number or name of the port to access on the pods targeted by the service
+      targetPort: 8081
+  selector:
+    app: nginx
