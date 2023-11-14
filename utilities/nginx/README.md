@@ -20,13 +20,7 @@ Nginx 1.19.3
 $ docker build 
     -f Dockerfile-1.19.3-openshift 
     -t nginx:1.19.3-openshift 
-.
+    .
 ```
 
 This image is made available to you at docker.io/sunnyvaleit/nginx:1.19.3-openshift (arm64 version)
-
-
-docker build 
-    -f Dockerfile-1.19.3-openshift
-    -t sunnyvaleit/nginx:1.19.3-openshift
-    .
