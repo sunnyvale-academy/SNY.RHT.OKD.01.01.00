@@ -218,6 +218,27 @@ triggers:
         name: my-nginx-is:latest
 ```
 
+```console
+$ oc rollout history dc/simple-http-server  
+deploymentconfig.apps.openshift.io/simple-http-server 
+REVISION        STATUS          CAUSE
+1               Complete        config change
+2               Complete        image change
+```
+
+```console
+$ oc rollout undo dc/simple-http-server --to-revision=1
+deploymentconfig.apps.openshift.io/simple-http-server rolled back
+```
+
+```console
+$ oc get rc                                            
+NAME                   DESIRED   CURRENT   READY   AGE
+simple-http-server-1   0         0         0       11m
+simple-http-server-2   0         0         0       6m14s
+simple-http-server-3   1         1         1       19s
+```
+
 ## Cleanup
 
 
