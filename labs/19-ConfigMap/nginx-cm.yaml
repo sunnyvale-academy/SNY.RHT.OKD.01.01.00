@@ -29,7 +29,7 @@ data:
               'request_time:$request_time';
       access_log	/var/log/nginx/access.log main;
       server {
-          listen       80;
+          listen       8081;
           server_name  _;
           location / {
               root   html;
@@ -44,7 +44,7 @@ data:
       keepalive 1024;
     }
     server {
-      listen 80 default_server;
+      listen 8081 default_server;
       root /usr/local/app;
       access_log /var/log/nginx/app.access_log main;
       error_log /var/log/nginx/app.error_log;

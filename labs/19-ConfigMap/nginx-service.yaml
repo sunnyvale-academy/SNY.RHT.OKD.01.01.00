@@ -9,6 +9,6 @@ spec:
   - name: http
     nodePort: 31719
     port: 80
-    targetPort: 80
+    targetPort: 8081
   selector:
     app: nginx
