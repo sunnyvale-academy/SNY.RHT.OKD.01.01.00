@@ -87,6 +87,22 @@ NAME                  CPU(cores)   MEMORY(bytes)
 resource-tester-pod   4m           42Mi      
 ```
 
+If you get an error like
+
+```
+error: Metrics API not available
+```
+
+please enable the cluster monitoring using:
+
+```console
+$ crc config set enable-cluster-monitoring true
+$ crc stop
+$ crc start -m 15000
+```
+
+***BE AWARE:*** it takes a lot more resources and a cluster restart (don't try this at home!!! 😅 )
+
 As you can see, we have verified the following situation:
 
 - Pod memory demand (stress argument): 40m
