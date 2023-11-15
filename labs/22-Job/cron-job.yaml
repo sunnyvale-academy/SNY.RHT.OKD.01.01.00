@@ -1,4 +1,4 @@
-apiVersion: batch/v1beta1
+apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: hello
@@ -16,5 +16,5 @@ spec:
             args:
             - /bin/sh
             - -c
-            - date; echo Hello from the Kubernetes cluster
+            - date; echo Hello from the OpenShift cluster
           restartPolicy: OnFailure
