@@ -17,5 +17,5 @@ spec:
       - name: nginx
         image: sunnyvaleit/nginx:1.19.3-openshift
         ports:
-        - containerPort: 80
+        - containerPort: 8081
   replicas: 2
