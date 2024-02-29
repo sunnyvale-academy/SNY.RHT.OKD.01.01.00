@@ -48,7 +48,7 @@ From the most basic perspective, the Horizontal Pod Autoscaler controller operat
 desiredReplicas = ceil[currentReplicas * ( currentMetricValue / desiredMetricValue )]
 ```
 
-For example, if the current metric value is 200m, and the desired value is 100m, the number of replicas will be doubled, since 200.0 / 100.0 == 2.0 If the current value is instead 50m, we'll halve the number of replicas, since 50.0 / 100.0 == 0.5.
+For example, if the current metric value is 200m, and the desired value is 100m, the number of replicas will be doubled, since 200.0 / 100.0 == 2.0. If the current value is instead 50m, we'll halve the number of replicas, since 50.0 / 100.0 == 0.5.
 
 
 ## HPA in action
