@@ -16,6 +16,9 @@ spec:
     spec:
       containers:
       - name: whoami
-        image: containous/whoami:latest
+        env:
+        - name: WHOAMI_PORT_NUMBER
+          value: "8081"
+        image: traefik/whoami
         ports:
-        - containerPort: 80
+        - containerPort: 8081
