@@ -9,10 +9,16 @@ spec:
     http:
       paths:
       - path: /
+        pathType: ImplementationSpecific
         backend:
-          serviceName: nginx-service
-          servicePort: http
+          service:
+            name: nginx-service
+            port: 
+              name: http
       - path: /whoami
+        pathType: ImplementationSpecific
         backend:
-          serviceName: whoami-service
-          servicePort: http
+          service:
+            name: whoami-service
+            port: 
+              name: http

@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: nginx
-        sunnyvaleit/nginx:1.19.3-openshift
+        image: sunnyvaleit/nginx:1.19.3-openshift
         ports:
         - containerPort: 80

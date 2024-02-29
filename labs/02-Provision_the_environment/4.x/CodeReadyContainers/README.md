@@ -9,7 +9,7 @@ When done, put the crc binary into the PATH environment variable.
 Setup the CRC VM
 
 ```console
-$ crc setup
+$ crc setup --bundle https://developers.redhat.com/content-gateway/file/pub/openshift-v4/clients/crc/bundles/openshift/4.13.9/crc_vfkit_4.13.9_arm64.crcbundle
 INFO Checking if oc binary is cached
 INFO Caching oc binary
 INFO Checking if podman remote binary is cached
@@ -59,7 +59,7 @@ $ crc config set cpus 8
 Now start the VM, be sure to paste the content of pull-secret file when prompted.
 
 ```console
-$ crc start 
+$ crc start --bundle https://developers.redhat.com/content-gateway/file/pub/openshift-v4/clients/crc/bundles/openshift/4.13.9/crc_vfkit_4.13.9_arm64.crcbundle
 INFO Checking if oc binary is cached              
 INFO Checking if podman remote binary is cached   
 INFO Checking if goodhosts binary is cached       
