@@ -14,14 +14,28 @@ spec:
     spec:
       containers:
       - name: php-apache
-        image: k8s.gcr.io/hpa-example
+        image: sunnyvaleit/hpa-example
         ports:
-        - containerPort: 80
+        - containerPort: 8081
         resources:
           limits:
             cpu: 500m
           requests:
             cpu: 200m
+        volumeMounts:
+        - name: "config"
+          mountPath: "/var/www/html/index.php"
+          subPath: "index.php"
+      restartPolicy: Always
+      volumes:
+        - name: "config"
+          configMap:
+            name: "config"
+            items:
+            - key: index.php
+              path: index.php
+
+
 ---
 apiVersion: v1
 kind: Service
@@ -32,5 +46,6 @@ metadata:
 spec:
   ports:
   - port: 80
+    targetPort: 8081
   selector:
     run: php-apache
