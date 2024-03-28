@@ -10,3 +10,5 @@ spec:
       storage: 1Gi
     requests:
       storage: 1Gi
+  #volumeName: pvc-0a41ee03-30fc-4c1b-9b7b-5563cce66b12
+  # oc patch pv pvc-0a41ee03-30fc-4c1b-9b7b-5563cce66b12 -p '{"spec":{"claimRef": null}}'
