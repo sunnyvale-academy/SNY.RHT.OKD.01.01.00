@@ -14,7 +14,7 @@ metadata:
 
       WARNING: Any data stored will be lost upon pod destruction. Only use this template for testing.
     iconClass: icon-nodejs
-    openshift.io/display-name: My Node.js + PostgreSQL (Ephemeral)
+    openshift.io/display-name: My Node.js + PostgreSQL (Ephemeral) by Denis
     openshift.io/documentation-url: https://github.com/nodeshift-starters/nodejs-rest-http-crud
     openshift.io/long-description: This template defines resources needed to develop
       a NodeJS application, including a build configuration, application deployment
