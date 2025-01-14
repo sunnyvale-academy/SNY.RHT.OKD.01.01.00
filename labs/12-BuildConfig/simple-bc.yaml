@@ -15,7 +15,7 @@ spec:
     sourceStrategy:
       from:
         kind: ImageStreamTag
-        name: 'ruby:2.7-ubi8'
+        name: 'ruby:2.5-ubi8'
         namespace: openshift
       env: []
   output: 
