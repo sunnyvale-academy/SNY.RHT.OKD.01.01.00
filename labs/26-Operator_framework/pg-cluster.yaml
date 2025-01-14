@@ -1,0 +1,90 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  labels:
+    app: mydb
+  name: cluster-sample
+  namespace: test
+spec:
+  logLevel: info
+  startDelay: 3600
+  stopDelay: 1800
+  nodeMaintenanceWindow:
+    inProgress: false
+    reusePVC: true
+  smartShutdownTimeout: 180
+  backup:
+    target: prefer-standby
+    volumeSnapshot:
+      online: true
+      onlineConfiguration:
+        immediateCheckpoint: false
+        waitForArchive: true
+      snapshotOwnerReference: none
+  resources: {}
+  imageName: 'ghcr.io/cloudnative-pg/postgresql:16.2'
+  enableSuperuserAccess: false
+  monitoring:
+    customQueriesConfigMap:
+      - key: queries
+        name: cnpg-default-monitoring
+    disableDefaultQueries: false
+    enablePodMonitor: false
+  affinity:
+    podAntiAffinityType: preferred
+  minSyncReplicas: 0
+  postgresGID: 26
+  replicationSlots:
+    highAvailability:
+      enabled: true
+      slotPrefix: _cnpg_
+    synchronizeReplicas:
+      enabled: true
+    updateInterval: 30
+  enablePDB: true
+  primaryUpdateMethod: restart
+  bootstrap:
+    initdb:
+      database: app
+      encoding: UTF8
+      localeCType: C
+      localeCollate: C
+      owner: app
+  failoverDelay: 0
+  postgresql:
+    parameters:
+      log_truncate_on_rotation: 'false'
+      archive_mode: 'on'
+      log_filename: postgres
+      archive_timeout: 5min
+      max_replication_slots: '32'
+      log_rotation_size: '0'
+      wal_level: logical
+      shared_preload_libraries: ''
+      logging_collector: 'on'
+      wal_receiver_timeout: 5s
+      ssl_min_protocol_version: TLSv1.3
+      log_directory: /controller/log
+      log_destination: csvlog
+      wal_sender_timeout: 5s
+      wal_log_hints: 'on'
+      max_worker_processes: '32'
+      max_parallel_workers: '32'
+      log_rotation_age: '0'
+      shared_memory_type: mmap
+      dynamic_shared_memory_type: posix
+      wal_keep_size: 512MB
+      ssl_max_protocol_version: TLSv1.3
+    syncReplicaElectionConstraint:
+      enabled: false
+  postgresUID: 26
+  walStorage:
+    resizeInUseVolumes: true
+    size: 1Gi
+  maxSyncReplicas: 0
+  switchoverDelay: 3600
+  storage:
+    resizeInUseVolumes: true
+    size: 1Gi
+  primaryUpdateStrategy: unsupervised
+  instances: 3

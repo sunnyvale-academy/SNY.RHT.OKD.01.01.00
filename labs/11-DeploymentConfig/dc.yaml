@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: simple-http-server
-          image: ""
+          # image: ""
           ports:
             - containerPort: 80
               protocol: TCP
