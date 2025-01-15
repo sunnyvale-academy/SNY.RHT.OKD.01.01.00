@@ -1,4 +1,4 @@
-# DeploymentConfig
+# DeploymentConfig (deprecated with OpenShift 4.14)
 
 Building on ReplicationControllers, OpenShift's adds expanded support for the software development and deployment lifecycle with the concept of DeploymentConfigs. In the simplest case, a DeploymentConfig creates a new ReplicationController and lets it start up Pods.
 
